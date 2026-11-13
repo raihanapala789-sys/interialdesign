@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELORE — Interiors, Elevated. | Private-Client Luxury Interior Architecture</title>
+  <meta
+    name="description"
+    content="VELORE is a bespoke interior architecture and private-client design studio creating calm, timeless spaces shaped by material, light, and precision craft."
+  />
+  <meta name="theme-color" content="#0e0d0c" />
+
+  <!-- Open Graph & Editorial SEO Metadata -->
+  <meta property="og:title" content="VELORE — Interiors, Elevated." />
+  <meta property="og:description" content="Private architecture and bespoke interior studio in Zurich and London, shaped by stone, smoked walnut, linen, and calm proportion." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/01-hero-interior.jpg" />
+
+  <!-- Preload Hero & Key Spatial Scenes -->
+  <link rel="preload" as="image" href="assets/images/01-hero-interior.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="assets/images/02-space-dining.jpg" />
+  <link rel="preload" as="image" href="assets/images/03-space-living.jpg" />
+  <link rel="preload" as="image" href="assets/images/04-space-bedroom.jpg" />
+  <link rel="preload" as="image" href="assets/images/05-space-kitchen.jpg" />
+  <link rel="preload" as="image" href="assets/images/14-space-bathroom.jpg" />
+
+  <!-- Typography: Cormorant Garamond (Display Serif) & Inter + Jost (Light Editorial Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Jost:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="is-locked has-custom-cursor">
+  <!-- Subtle Architectural Film Grain -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Custom Champagne Cursor -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <span class="custom-cursor__label" id="cursorLabel">View</span>
+  </div>
+
+  <!-- ======================================================================
+       0. PRELOADER (2s Intro, Skippable -> Lifts To Reveal Hero)
+       ====================================================================== -->
+  <div class="preloader" id="preloader" role="status" aria-label="Loading VELORE experience">
+    <div class="preloader__inner">
+      <div class="preloader__brand" id="preloaderBrand">VELORE</div>
+      <div class="preloader__tagline" id="preloaderTagline">Interiors, Elevated.</div>
+      <div class="preloader__track">
+        <div class="preloader__bar" id="preloaderBar"></div>
+      </div>
+      <div class="preloader__meta">
+        <div class="preloader__percent" id="preloaderPercent">00%</div>
+        <button class="preloader__skip" id="skipPreloaderBtn" type="button">Skip &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       NAVIGATION (Transparent at Top -> Slim Blurred Glass on Scroll)
+       ====================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="site-header__inner">
+      <a href="#home" class="brand-mark" aria-label="VELORE Home">
+        <span class="brand-mark__word">VELORE</span>
+        <span class="brand-mark__sub">Zurich &bull; London</span>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a class="nav-link is-active" href="#home">Home</a></li>
+          <li><a class="nav-link" href="#about">Story</a></li>
+          <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link" href="#spaces">Spaces</a></li>
+          <li><a class="nav-link" href="#services">Services</a></li>
+          <li><a class="nav-link" href="#materials">Materials</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button
+          class="icon-btn"
+          id="soundToggleBtn"
+          type="button"
+          aria-label="Toggle subtle room ambience sound"
+          aria-pressed="false"
+          title="Ambient room sound (Off)"
+          data-cursor="pointer"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5L6 9H3v6h3l5 4V5z" />
+            <path class="sound-waves" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" />
+          </svg>
+        </button>
+
+        <button
+          class="icon-btn"
+          id="openSearchBtn"
+          type="button"
+          aria-label="Search spaces, projects, and materials"
+          data-cursor="pointer"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M16.5 16.5L21 21" />
+          </svg>
+        </button>
+
+        <button
+          class="icon-btn"
+          id="openWishlistBtn"
+          type="button"
+          aria-label="Saved pieces and projects"
+          data-cursor="pointer"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20.5s-7.5-4.7-9.2-9.2C1.6 8.1 3.7 5 7 5c1.9 0 3.6 1 5 2.7C13.4 6 15.1 5 17 5c3.3 0 5.4 3.1 4.2 6.3-1.7 4.5-9.2 9.2-9.2 9.2z" />
+          </svg>
+          <span class="wishlist-count" id="wishlistBadge">0</span>
+        </button>
+
+        <a href="#contact" class="btn btn--outlined nav-enquire-btn magnetic" data-cursor="pointer">
+          Enquire
+        </a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Full-Screen Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu__list">
+      <li><a class="mobile-menu__link" href="#home"><span>00</span> Home</a></li>
+      <li><a class="mobile-menu__link" href="#about"><span>01</span> Story</a></li>
+      <li><a class="mobile-menu__link" href="#portfolio"><span>02</span> Portfolio</a></li>
+      <li><a class="mobile-menu__link" href="#spaces"><span>03</span> Spaces 360&deg;</a></li>
+      <li><a class="mobile-menu__link" href="#services"><span>04</span> Services</a></li>
+      <li><a class="mobile-menu__link" href="#materials"><span>05</span> Materials</a></li>
+      <li><a class="mobile-menu__link" href="#contact"><span>06</span> Enquire</a></li>
+    </ul>
+    <div class="mobile-menu__footer">
+      <span class="text-muted">Private Atelier &mdash; By Appointment Only</span>
+      <a href="#contact" class="btn btn--outlined mobile-menu__cta">Enquire</a>
+    </div>
+  </div>
+
+  <main id="mainContent">
+    <!-- ====================================================================
+         1. HERO SCENE: FULL-SIZE SCROLL-DRIVEN ARCHITECTURAL REVEAL (FULL CLARITY)
+         ==================================================================== -->
+    <div class="hero-scroll-track" id="heroScrollTrack">
+      <section class="hero hero--full" id="home" data-section="home">
+        
+        <!-- Full-Size Architectural Video Reveal (100% Full Clarity, Zero Blur) -->
+        <div class="hero-full__media" id="heroCinemaStage">
+          <video
+            id="heroScrollVideo"
+            class="hero-full__video"
+            playsinline
+            muted
+            preload="auto"
+            poster="assets/images/hero-video-poster.jpg"
+            src="assets/luxury_architectural_reveal.mp4?v=1113"
+            aria-label="Architectural reveal of VELORE private residence in full clarity"
+          >
+            <source src="assets/luxury_architectural_reveal.mp4?v=1113" type="video/mp4" />
+          </video>
+          <img
+            src="assets/images/hero-video-poster.jpg"
+            data-image-slot="heroInterior"
+            alt="VELORE private residence"
+            class="hero-full__fallback-img"
+            id="heroImg"
+          />
+        </div>
+
+        <!-- Full-Size Caption on the First of the Scrolling Animation -->
+        <div class="container hero-full__caption-wrap" id="heroCaptionStage">
+          <div class="hero-full__caption-card">
+            <span class="eyebrow" id="heroEyebrow">VELORE / ATELIER RESIDENCE</span>
+            <h1 class="heading-display hero-full__heading" id="heroTitle">
+              <span class="line">DESIGN THE</span>
+              <span class="line">WAY YOU LIVE.</span>
+            </h1>
+            <div class="btn-group hero-full__actions" id="heroActions">
+              <a href="#contact" class="btn btn--filled magnetic" data-cursor="pointer">
+                Book Consultation
+              </a>
+              <a href="#portfolio" class="btn btn--outlined magnetic" data-cursor="pointer">
+                Explore Portfolio
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Live HUD at Bottom of the Full-Size Reveal -->
+        <div class="hero-full__hud" aria-hidden="true">
+          <div class="hero-cinema__chapter-box">
+            <span class="hero-cinema__tag">MONOGRAPH 01</span>
+            <span class="hero-cinema__chapter-title" id="heroCinemaChapter">
+              01 · ATELIER REVEAL &amp; COVE LIGHTING
+            </span>
+          </div>
+
+          <div class="hero-cinema__scrubber">
+            <span class="hero-cinema__time" id="heroTimeCounter">00:00 / 00:10</span>
+            <div class="hero-cinema__progress-rail">
+              <div class="hero-cinema__progress-fill" id="heroScrubProgress"></div>
+            </div>
+            <span class="hero-cinema__cue-text">Scroll to explore &darr;</span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- Trust Strip & Studio Numbers -->
+    <div class="trust-band">
+      <div class="container">
+        <div class="trust-grid">
+          <div class="trust-item reveal-up">
+            <svg class="trust-item__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <circle cx="14" cy="14" r="10" />
+              <path d="M14 8v6l4 2" />
+            </svg>
+            <h2 class="trust-item__title">Timeless Design</h2>
+            <p class="trust-item__desc">Architecture built to outlast passing trends.</p>
+          </div>
+
+          <div class="trust-item reveal-up">
+            <svg class="trust-item__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <polygon points="14,3 24,9 24,19 14,25 4,19 4,9" />
+              <path d="M14 14l10-5M14 14v11M14 14L4 9" />
+            </svg>
+            <h2 class="trust-item__title">Premium Materials</h2>
+            <p class="trust-item__desc">Full-grain timbers, honed stones, raw linens.</p>
+          </div>
+
+          <div class="trust-item reveal-up">
+            <svg class="trust-item__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <path d="M5 23L23 5M9 5l14 14M5 17l6 6" />
+            </svg>
+            <h2 class="trust-item__title">Precision Craft</h2>
+            <p class="trust-item__desc">Millimetre joinery executed by master artisans.</p>
+          </div>
+
+          <div class="trust-item reveal-up">
+            <svg class="trust-item__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+              <path d="M6 12a8 8 0 0 1 16 0v7a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-7z" />
+              <path d="M10 15h8" />
+            </svg>
+            <h2 class="trust-item__title">Designed for Life</h2>
+            <p class="trust-item__desc">Quiet comfort calibrated to how you move.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-strip">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-cell reveal-up">
+            <div class="stat-cell__num" data-counter="12" data-suffix="+">12+</div>
+            <div class="stat-cell__label">Years of Practice</div>
+          </div>
+          <div class="stat-cell reveal-up">
+            <div class="stat-cell__num" data-counter="150" data-suffix="+">150+</div>
+            <div class="stat-cell__label">Completed Projects</div>
+          </div>
+          <div class="stat-cell reveal-up">
+            <div class="stat-cell__num" data-counter="8" data-suffix="">8</div>
+            <div class="stat-cell__label">International Cities</div>
+          </div>
+          <div class="stat-cell reveal-up">
+            <div class="stat-cell__num" data-counter="40" data-suffix="+">40+</div>
+            <div class="stat-cell__label">Master Artisans</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         2. STORY: "The Story Behind the Spaces"
+         ==================================================================== -->
+    <section class="section hairline-top" id="about" data-section="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-quote-col reveal-up">
+            <span class="eyebrow">01 / Story &bull; About VELORE</span>
+            <h2 class="heading-section section-head__title">The Story Behind the Spaces</h2>
+            <blockquote class="about-quote">
+              &ldquo;Design should feel effortless, personal, and timeless.&rdquo;
+            </blockquote>
+          </div>
+
+          <div class="about-story-col reveal-up">
+            <p class="lead" style="margin-bottom: 1.15rem;">
+              Founded twelve years ago between Zurich and London, VELORE approaches every residence as quiet architecture. Rather than ornamenting rooms, we edit volume, light, and shadow until only what feels natural remains.
+            </p>
+            <p class="text-muted">
+              Our studio takes on a limited number of private residential and boutique hospitality commissions each year so every detail &mdash; from structural layout to brushed brass pulls &mdash; is personally directed from concept to handover.
+            </p>
+
+            <!-- Self-Drawing SVG Founder Signature -->
+            <div class="signature-wrap">
+              <svg
+                class="signature-svg"
+                id="founderSignature"
+                viewBox="0 0 260 76"
+                aria-label="Founder signature"
+              >
+                <path d="M18 52 C28 18, 48 14, 44 48 C41 64, 58 24, 68 20 C62 46, 56 58, 76 48 C92 38, 102 22, 95 45 C90 60, 114 36, 126 30 C122 48, 134 52, 148 38 C160 26, 166 16, 162 44 C159 58, 178 42, 192 36 C204 30, 218 44, 244 35" />
+                <path d="M34 62 Q132 54 228 58" stroke-opacity="0.55" />
+              </svg>
+              <span class="text-muted" style="font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;">
+                Elena Voss &bull; Founder
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Value Cards -->
+        <div class="values-grid">
+          <div class="value-card reveal-up">
+            <div class="value-card__head">
+              <span class="value-card__title">01 / Craft</span>
+              <span class="text-champagne">&rarr;</span>
+            </div>
+            <p class="value-card__text">
+              Joinery, stone masonry, and custom upholstery executed alongside generational European ateliers without compromise.
+            </p>
+          </div>
+          <div class="value-card reveal-up">
+            <div class="value-card__head">
+              <span class="value-card__title">02 / Care</span>
+              <span class="text-champagne">&rarr;</span>
+            </div>
+            <p class="value-card__text">
+              Dedicated private-client stewardship with transparent budgeting, weekly site reporting, and direct principal access.
+            </p>
+          </div>
+          <div class="value-card reveal-up">
+            <div class="value-card__head">
+              <span class="value-card__title">03 / Calm</span>
+              <span class="text-champagne">&rarr;</span>
+            </div>
+            <p class="value-card__text">
+              Acoustically balanced rooms, glare-free lighting scenes, and tactile surfaces that lower the pulse the moment you step inside.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         3. PORTFOLIO: "Our Featured Work" (Horizontal Scroll + Before / After)
+         ==================================================================== -->
+    <section class="section section--alt hairline-top" id="portfolio" data-section="portfolio">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__left reveal-up">
+            <span class="eyebrow">02 / Portfolio</span>
+            <h2 class="heading-section section-head__title">Our Featured Work</h2>
+            <p class="lead section-head__sub">
+              Private residences and sanctuaries transformed from raw shell. Drag the centre divider to compare, or scroll horizontally through selected works.
+            </p>
+          </div>
+
+          <div class="filter-tabs reveal-up" role="tablist" aria-label="Filter projects by typology">
+            <button class="filter-tab is-active" type="button" role="tab" aria-selected="true" data-filter="all">All Works</button>
+            <button class="filter-tab" type="button" role="tab" aria-selected="false" data-filter="Residential">Residential</button>
+            <button class="filter-tab" type="button" role="tab" aria-selected="false" data-filter="Villas">Villas</button>
+            <button class="filter-tab" type="button" role="tab" aria-selected="false" data-filter="Commercial">Commercial</button>
+            <button class="filter-tab" type="button" role="tab" aria-selected="false" data-filter="Hospitality">Hospitality</button>
+          </div>
+        </div>
+
+        <div class="portfolio-toolbar">
+          <div class="portfolio-progress-wrap">
+            <span class="portfolio-index" id="portfolioIndex">01 / 03</span>
+            <div class="portfolio-progress-track" aria-hidden="true">
+              <div class="portfolio-progress-fill" id="portfolioProgressFill"></div>
+            </div>
+          </div>
+
+          <div class="portfolio-arrows">
+            <button class="portfolio-arrow" id="portfolioPrevBtn" type="button" aria-label="Previous project" data-cursor="pointer">
+              &larr;
+            </button>
+            <button class="portfolio-arrow" id="portfolioNextBtn" type="button" aria-label="Next project" data-cursor="pointer">
+              &rarr;
+            </button>
+          </div>
+        </div>
+
+        <div class="portfolio-viewport" id="portfolioViewport" data-cursor="drag">
+          <div class="portfolio-list" id="portfolioList">
+            <!-- Project 1 -->
+            <article class="project-row" data-category="Residential" data-project-idx="0">
+              <div
+                class="ba-slider"
+                data-ba-slider
+                data-cursor="drag"
+                role="slider"
+                tabindex="0"
+                aria-label="Before and After transformation of The Observatory Penthouse"
+                aria-valuemin="5"
+                aria-valuemax="95"
+                aria-valuenow="50"
+              >
+                <img
+                  src="assets/images/07-project1-after.jpg"
+                  data-image-slot="project1After"
+                  alt="After: Completed Observatory Penthouse living room with fluted walnut walls and travertine flooring"
+                  class="ba-slider__img"
+                  loading="eager"
+                />
+                <div class="ba-slider__before">
+                  <img
+                    src="assets/images/06-project1-before.jpg"
+                    data-image-slot="project1Before"
+                    alt="Before: Raw concrete shell of The Observatory Penthouse prior to VELORE transformation"
+                    loading="eager"
+                  />
+                </div>
+                <span class="ba-slider__tag ba-slider__tag--before">Before</span>
+                <span class="ba-slider__tag ba-slider__tag--after">After</span>
+                <div class="ba-slider__divider"></div>
+                <div class="ba-slider__handle" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M8 7l-5 5 5 5M16 7l5 5-5 5" />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="project-details">
+                <span class="project-details__num">01 / 03</span>
+                <div class="project-details__meta">
+                  <span>Residential</span>
+                  <span>Zurich</span>
+                  <span>420 m&sup2;</span>
+                  <span>2025</span>
+                </div>
+                <h3 class="heading-sub project-details__title">The Observatory Penthouse</h3>
+
+                <div class="project-specs">
+                  <div>
+                    <span class="project-spec__k">Concept</span>
+                    <span class="project-spec__v">Continuous fluted walnut ribbons framing alpine sightlines.</span>
+                  </div>
+                  <div>
+                    <span class="project-spec__k">Materials &amp; Pace</span>
+                    <span class="project-spec__v">Smoked Walnut, Travertine &bull; 9 Months</span>
+                  </div>
+                </div>
+
+                <p class="project-details__story">
+                  Stripped back to structural concrete, re-proportioned around calm perimeter light and bespoke low-slung seating.
+                </p>
+
+                <div class="project-details__links">
+                  <button
+                    type="button"
+                    class="btn btn--outlined btn--sm magnetic"
+                    data-open-project="observatory"
+                    data-cursor="pointer"
+                  >
+                    View Dossier
+                  </button>
+                  <a
+                    href="#spaces"
+                    class="link-arrow"
+                    data-walkthrough-space="1"
+                    data-cursor="pointer"
+                  >
+                    Step inside room &rarr;
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-row" data-category="Villas" data-project-idx="1">
+              <div
+                class="ba-slider"
+                data-ba-slider
+                data-cursor="drag"
+                role="slider"
+                tabindex="0"
+                aria-label="Before and After transformation of Casa Calma Coastal Villa"
+                aria-valuemin="5"
+                aria-valuemax="95"
+                aria-valuenow="50"
+              >
+                <img
+                  src="assets/images/09-project2-after.jpg"
+                  data-image-slot="project2After"
+                  alt="After: Completed Casa Calma Coastal Villa with smoked oak beams and warm limestone"
+                  class="ba-slider__img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="ba-slider__before">
+                  <img
+                    src="assets/images/08-project2-before.jpg"
+                    data-image-slot="project2Before"
+                    alt="Before: Unfinished coastal villa shell with bare concrete slab"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <span class="ba-slider__tag ba-slider__tag--before">Before</span>
+                <span class="ba-slider__tag ba-slider__tag--after">After</span>
+                <div class="ba-slider__divider"></div>
+                <div class="ba-slider__handle" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M8 7l-5 5 5 5M16 7l5 5-5 5" />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="project-details">
+                <span class="project-details__num">02 / 03</span>
+                <div class="project-details__meta">
+                  <span>Villas</span>
+                  <span>Mallorca</span>
+                  <span>680 m&sup2;</span>
+                  <span>2024</span>
+                </div>
+                <h3 class="heading-sub project-details__title">Casa Calma Coastal Villa</h3>
+
+                <div class="project-specs">
+                  <div>
+                    <span class="project-spec__k">Concept</span>
+                    <span class="project-spec__v">Seamless terrace threshold anchored in oak and limestone.</span>
+                  </div>
+                  <div>
+                    <span class="project-spec__k">Materials &amp; Pace</span>
+                    <span class="project-spec__v">Charred Teak, Linen, Bronze &bull; 11 Months</span>
+                  </div>
+                </div>
+
+                <p class="project-details__story">
+                  Opening partitions created a cool courtyard-to-sea axis where lime plaster softens afternoon light into dusk.
+                </p>
+
+                <div class="project-details__links">
+                  <button
+                    type="button"
+                    class="btn btn--outlined btn--sm magnetic"
+                    data-open-project="casa-calma"
+                    data-cursor="pointer"
+                  >
+                    View Dossier
+                  </button>
+                  <a
+                    href="#spaces"
+                    class="link-arrow"
+                    data-walkthrough-space="0"
+                    data-cursor="pointer"
+                  >
+                    Step inside room &rarr;
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-row" data-category="Commercial Hospitality" data-project-idx="2">
+              <div
+                class="ba-slider"
+                data-ba-slider
+                data-cursor="drag"
+                role="slider"
+                tabindex="0"
+                aria-label="Before and After transformation of Atelier Noir Private Lounge"
+                aria-valuemin="5"
+                aria-valuemax="95"
+                aria-valuenow="50"
+              >
+                <img
+                  src="assets/images/11-project3-after.jpg"
+                  data-image-slot="project3After"
+                  alt="After: Completed Atelier Noir Private Lounge with walnut paneling and cognac leather chairs"
+                  class="ba-slider__img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="ba-slider__before">
+                  <img
+                    src="assets/images/10-project3-before.jpg"
+                    data-image-slot="project3Before"
+                    alt="Before: Raw commercial floor plate prior to fit-out"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <span class="ba-slider__tag ba-slider__tag--before">Before</span>
+                <span class="ba-slider__tag ba-slider__tag--after">After</span>
+                <div class="ba-slider__divider"></div>
+                <div class="ba-slider__handle" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M8 7l-5 5 5 5M16 7l5 5-5 5" />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="project-details">
+                <span class="project-details__num">03 / 03</span>
+                <div class="project-details__meta">
+                  <span>Hospitality</span>
+                  <span>Mayfair, London</span>
+                  <span>310 m&sup2;</span>
+                  <span>2025</span>
+                </div>
+                <h3 class="heading-sub project-details__title">Atelier Noir Private Lounge</h3>
+
+                <div class="project-specs">
+                  <div>
+                    <span class="project-spec__k">Concept</span>
+                    <span class="project-spec__v">Acoustic timber coffers with 2400K gallery pin-spots.</span>
+                  </div>
+                  <div>
+                    <span class="project-spec__k">Materials &amp; Pace</span>
+                    <span class="project-spec__v">Walnut, Champagne Brass, Leather &bull; 7 Months</span>
+                  </div>
+                </div>
+
+                <p class="project-details__story">
+                  Crafted around intimate conversation islands and concealed brass bar joinery calibrated to evening calm.
+                </p>
+
+                <div class="project-details__links">
+                  <button
+                    type="button"
+                    class="btn btn--outlined btn--sm magnetic"
+                    data-open-project="atelier-noir"
+                    data-cursor="pointer"
+                  >
+                    View Dossier
+                  </button>
+                  <a
+                    href="#spaces"
+                    class="link-arrow"
+                    data-walkthrough-space="2"
+                    data-cursor="pointer"
+                  >
+                    Step inside room &rarr;
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         4. SPACES IN 360° (Pinned Panoramic Scenes + Day/Night Lighting Toggle)
+         ==================================================================== -->
+    <section
+      class="pinned-stage"
+      id="spaces"
+      data-section="spaces"
+      data-lighting="night"
+      aria-label="Spaces in 360 Degrees"
+    >
+      <div class="spaces-controls">
+        <div class="spaces-quickbar" id="spacesQuickbar" role="tablist" aria-label="Jump to room">
+          <button class="spaces-quickbar__btn is-active" type="button" data-space-jump="0">01 Dining</button>
+          <button class="spaces-quickbar__btn" type="button" data-space-jump="1">02 Living</button>
+          <button class="spaces-quickbar__btn" type="button" data-space-jump="2">03 Bedroom</button>
+          <button class="spaces-quickbar__btn" type="button" data-space-jump="3">04 Kitchen</button>
+          <button class="spaces-quickbar__btn" type="button" data-space-jump="4">05 Bathroom</button>
+        </div>
+
+        <div class="lighting-toggle" id="lightingToggle" role="group" aria-label="Room lighting mood">
+          <button class="lighting-toggle__btn" type="button" data-lighting-mode="day">Daylight</button>
+          <button class="lighting-toggle__btn is-active" type="button" data-lighting-mode="night">Evening</button>
+        </div>
+      </div>
+
+      <div class="pinned-stage__scenes">
+        <!-- Room 01: Dining -->
+        <article class="scene is-initial" data-space="0">
+          <div class="scene__bg">
+            <img
+              src="assets/images/02-space-dining.jpg"
+              data-image-slot="spaceDining"
+              alt="Panoramic view of VELORE dark walnut and travertine luxury dining room"
+              class="scene__img scene__img--panoramic"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+          <div class="scene__vignette scene__vignette--room" aria-hidden="true"></div>
+
+          <div class="hotspot-layer">
+            <div class="hotspot" style="left: 58%; top: 56%;">
+              <button class="hotspot__btn" type="button" aria-label="Monolith Dining Table material"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Monolith Table</span>
+                <span class="hotspot__mat">Hand-Planed Smoked Walnut</span>
+              </div>
+            </div>
+            <div class="hotspot" style="left: 65%; top: 28%;">
+              <button class="hotspot__btn" type="button" aria-label="Halo Chandelier material"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Aurelia Linear Pendant</span>
+                <span class="hotspot__mat">Brushed Champagne Brass</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="container scene__content">
+            <div class="scene__box scene__box--wide">
+              <span class="eyebrow">03 / Spaces in 360° &mdash; Step Inside Every Room</span>
+              <h2 class="heading-display scene__title">
+                <span class="split-line">DINING</span>
+              </h2>
+              <p class="scene__desc">Where evenings become memories.</p>
+              <div class="room-specs">
+                <div>
+                  <span class="room-spec__label">Materials</span>
+                  <span class="room-spec__val">Smoked Walnut, Travertine</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Palette</span>
+                  <span class="room-spec__val">Espresso, Warm Ivory, Brass</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Key Pieces</span>
+                  <span class="room-spec__val">3.6m Plinth Table, Bouclé Chairs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Room 02: Living -->
+        <article class="scene" data-space="1">
+          <div class="scene__bg">
+            <img
+              src="assets/images/03-space-living.jpg"
+              data-image-slot="spaceLiving"
+              alt="Panoramic view of VELORE living salon with honed stone fireplace and custom joinery"
+              class="scene__img scene__img--panoramic"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+          <div class="scene__vignette scene__vignette--room" aria-hidden="true"></div>
+
+          <div class="hotspot-layer">
+            <div class="hotspot" style="left: 52%; top: 60%;">
+              <button class="hotspot__btn" type="button" aria-label="Linen Modular Sofa material"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Atelier Modular Sofa</span>
+                <span class="hotspot__mat">Unbleached Belgian Linen</span>
+              </div>
+            </div>
+            <div class="hotspot" style="left: 72%; top: 55%;">
+              <button class="hotspot__btn" type="button" aria-label="Camel Leather Lounge Chair material"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Saddle Accent Chair</span>
+                <span class="hotspot__mat">Full-Grain Saddle Leather</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="container scene__content">
+            <div class="scene__box scene__box--wide">
+              <span class="eyebrow">03 / Spaces in 360° &mdash; Step Inside Every Room</span>
+              <h2 class="heading-display scene__title">
+                <span class="split-line">LIVING</span>
+              </h2>
+              <p class="scene__desc">The heart of the home.</p>
+              <div class="room-specs">
+                <div>
+                  <span class="room-spec__label">Materials</span>
+                  <span class="room-spec__val">Fluted Oak, Basalt Hearth</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Palette</span>
+                  <span class="room-spec__val">Umber, Warm Sand, Taupe</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Key Pieces</span>
+                  <span class="room-spec__val">Modular Salon, Plinth Hearth</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Room 03: Bedroom -->
+        <article class="scene" data-space="2">
+          <div class="scene__bg">
+            <img
+              src="assets/images/04-space-bedroom.jpg"
+              data-image-slot="spaceBedroom"
+              alt="Panoramic view of VELORE serene dark master bedroom sanctuary"
+              class="scene__img scene__img--panoramic"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+          <div class="scene__vignette scene__vignette--room" aria-hidden="true"></div>
+
+          <div class="hotspot-layer">
+            <div class="hotspot" style="left: 55%; top: 44%;">
+              <button class="hotspot__btn" type="button" aria-label="Fluted Headboard Wall material"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Acoustic Headboard Wall</span>
+                <span class="hotspot__mat">Oiled American Walnut</span>
+              </div>
+            </div>
+            <div class="hotspot" style="left: 70%; top: 48%;">
+              <button class="hotspot__btn" type="button" aria-label="Brass Bedside Drop Pendant"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Nocturne Drop Lamp</span>
+                <span class="hotspot__mat">Hand-Brushed Champagne Brass</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="container scene__content">
+            <div class="scene__box scene__box--wide">
+              <span class="eyebrow">03 / Spaces in 360° &mdash; Step Inside Every Room</span>
+              <h2 class="heading-display scene__title">
+                <span class="split-line">BEDROOM</span>
+              </h2>
+              <p class="scene__desc">A sanctuary of calm.</p>
+              <div class="room-specs">
+                <div>
+                  <span class="room-spec__label">Materials</span>
+                  <span class="room-spec__val">Fluted Walnut, Raw Silk, Wool</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Palette</span>
+                  <span class="room-spec__val">Chocolate, Soft Ivory, Sand</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Key Pieces</span>
+                  <span class="room-spec__val">Floating Platform Bed, Drop Lights</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Room 04: Kitchen -->
+        <article class="scene" data-space="3">
+          <div class="scene__bg">
+            <img
+              src="assets/images/05-space-kitchen.jpg"
+              data-image-slot="spaceKitchen"
+              alt="Panoramic view of VELORE monolithic honed dark marble kitchen island"
+              class="scene__img scene__img--panoramic"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+          <div class="scene__vignette scene__vignette--room" aria-hidden="true"></div>
+
+          <div class="hotspot-layer">
+            <div class="hotspot" style="left: 54%; top: 68%;">
+              <button class="hotspot__btn" type="button" aria-label="Monolith Marble Island"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Sculpted Waterfall Island</span>
+                <span class="hotspot__mat">Honed Nero Marquina Marble</span>
+              </div>
+            </div>
+            <div class="hotspot" style="left: 68%; top: 53%;">
+              <button class="hotspot__btn" type="button" aria-label="Tapware finish"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Minimalist Bridge Tapware</span>
+                <span class="hotspot__mat">Unlacquered Champagne Brass</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="container scene__content">
+            <div class="scene__box scene__box--wide">
+              <span class="eyebrow">03 / Spaces in 360° &mdash; Step Inside Every Room</span>
+              <h2 class="heading-display scene__title">
+                <span class="split-line">KITCHEN</span>
+              </h2>
+              <p class="scene__desc">Where beauty meets function.</p>
+              <div class="room-specs">
+                <div>
+                  <span class="room-spec__label">Materials</span>
+                  <span class="room-spec__val">Nero Marquina, Smoked Oak</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Palette</span>
+                  <span class="room-spec__val">Espresso, Warm Veining, Brass</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Key Pieces</span>
+                  <span class="room-spec__val">Monolith Island, Pocket Pantry</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Room 05: Bathroom -->
+        <article class="scene" data-space="4">
+          <div class="scene__bg">
+            <img
+              src="assets/images/14-space-bathroom.jpg"
+              data-image-slot="spaceBathroom"
+              alt="Panoramic view of VELORE dark honed stone bathroom with carved monolith bathtub and fluted walnut vanity"
+              class="scene__img scene__img--panoramic"
+              loading="eager"
+              decoding="sync"
+            />
+          </div>
+          <div class="scene__vignette scene__vignette--room" aria-hidden="true"></div>
+
+          <div class="hotspot-layer">
+            <div class="hotspot" style="left: 46%; top: 53%;">
+              <button class="hotspot__btn" type="button" aria-label="Floating Walnut Vanity and Brass Tapware"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Fluted Double Vanity</span>
+                <span class="hotspot__mat">Smoked Walnut &bull; Nero Marquina</span>
+              </div>
+            </div>
+            <div class="hotspot" style="left: 66%; top: 68%;">
+              <button class="hotspot__btn" type="button" aria-label="Carved Monolith Bathtub"></button>
+              <div class="hotspot__card">
+                <span class="hotspot__name">Carved Monolith Tub</span>
+                <span class="hotspot__mat">Honed Veined Dark Travertine</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="container scene__content">
+            <div class="scene__box scene__box--wide">
+              <span class="eyebrow">03 / Spaces in 360° &mdash; Step Inside Every Room</span>
+              <h2 class="heading-display scene__title">
+                <span class="split-line">BATHROOM</span>
+              </h2>
+              <p class="scene__desc">A private ritual in stone.</p>
+              <div class="room-specs">
+                <div>
+                  <span class="room-spec__label">Materials</span>
+                  <span class="room-spec__val">Nero Marquina, Smoked Walnut</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Palette</span>
+                  <span class="room-spec__val">Espresso, Champagne Brass, Ash</span>
+                </div>
+                <div>
+                  <span class="room-spec__label">Key Pieces</span>
+                  <span class="room-spec__val">Carved Monolith Tub, Twin Vanity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Room 06: Final Frame -->
+        <article class="scene scene--center" data-space="5">
+          <div class="scene__bg">
+            <img
+              src="assets/images/01-hero-interior.jpg"
+              data-image-slot="heroInterior"
+              alt="Atmospheric close of VELORE Spaces in 360 degrees"
+              class="scene__img crop-cta-dark"
+              loading="lazy"
+            />
+          </div>
+          <div class="scene__vignette scene__vignette--center" aria-hidden="true"></div>
+          <div class="container scene__content" style="text-align: center;">
+            <div class="scene__box" style="margin: 0 auto;">
+              <span class="eyebrow eyebrow--plain">Private Commission</span>
+              <h2 class="heading-display scene__title">
+                <span class="split-line">IMAGINE THIS,</span>
+                <span class="split-line">IN YOUR HOME.</span>
+              </h2>
+              <p class="scene__desc" style="margin-inline: auto;">
+                Every architectural threshold, material texture, and warm light curve tailored to your daily ritual.
+              </p>
+              <a href="#contact" class="btn btn--filled magnetic" data-cursor="pointer">
+                Book a Consultation
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Right-Edge Rolling Slot-Machine Counter & Tick Dots -->
+      <aside class="scene-hud" aria-label="Spaces 360 navigation">
+        <div class="rolling-counter" aria-live="polite">
+          <div class="rolling-counter__slot">
+            <div class="rolling-counter__reel" id="spacesCounterReel">
+              <span>01</span>
+              <span>02</span>
+              <span>03</span>
+              <span>04</span>
+              <span>05</span>
+              <span>&mdash;</span>
+            </div>
+          </div>
+          <span class="rolling-counter__total">/ 05</span>
+        </div>
+
+        <div class="scene-progress" id="spacesProgress">
+          <div class="scene-progress__rail"></div>
+          <div class="scene-progress__fill" id="spacesProgressFill"></div>
+          <button class="scene-dot is-active" type="button" data-jump="0" aria-label="Room 01 Dining"></button>
+          <button class="scene-dot" type="button" data-jump="1" aria-label="Room 02 Living"></button>
+          <button class="scene-dot" type="button" data-jump="2" aria-label="Room 03 Bedroom"></button>
+          <button class="scene-dot" type="button" data-jump="3" aria-label="Room 04 Kitchen"></button>
+          <button class="scene-dot" type="button" data-jump="4" aria-label="Room 05 Bathroom"></button>
+          <button class="scene-dot" type="button" data-jump="5" aria-label="Imagine this in your home"></button>
+        </div>
+
+        <span class="scene-caption-tag">Spaces in 360&deg;</span>
+      </aside>
+    </section>
+
+    <!-- ====================================================================
+         5. SERVICES (Clean Numbered Expanding List)
+         ==================================================================== -->
+    <section class="section section--alt hairline-top" id="services" data-section="services">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__left reveal-up">
+            <span class="eyebrow">04 / Services</span>
+            <h2 class="heading-section section-head__title">How We Bring Your Vision to Life</h2>
+            <p class="lead section-head__sub">
+              Seven architectural disciplines executed under one private-client roof.
+            </p>
+          </div>
+        </div>
+
+        <div class="services-accordion" id="servicesAccordion">
+          <article class="service-item is-open" id="svc-0">
+            <button class="service-item__trigger" type="button" aria-expanded="true">
+              <span class="service-item__num">01</span>
+              <span class="service-item__title">Full Interior Design</span>
+              <span class="service-item__timeline">6&ndash;14 Months</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    Comprehensive interior architecture from structural shell through material specification, 1:20 millwork elevations, lighting scenes, and final placement.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Full Interior Design" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-item" id="svc-1">
+            <button class="service-item__trigger" type="button" aria-expanded="false">
+              <span class="service-item__num">02</span>
+              <span class="service-item__title">Space Planning &amp; Layout</span>
+              <span class="service-item__timeline">4&ndash;8 Weeks</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    Circulation choreography, natural daylight mapping, and partition editing prior to construction documentation.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Space Planning & Layout" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-item" id="svc-2">
+            <button class="service-item__trigger" type="button" aria-expanded="false">
+              <span class="service-item__num">03</span>
+              <span class="service-item__title">Turnkey Execution</span>
+              <span class="service-item__timeline">6&ndash;12 Months</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    Single-point contractor stewardship, weekly quality sign-offs, and calm keys-in-hand residence completion for international owners.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Turnkey Execution" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-item" id="svc-3">
+            <button class="service-item__trigger" type="button" aria-expanded="false">
+              <span class="service-item__num">04</span>
+              <span class="service-item__title">Custom Furniture &amp; Joinery</span>
+              <span class="service-item__timeline">8&ndash;14 Weeks</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    One-of-one smoked walnut cabinetry, monolithic travertine tables, and concealed bars built strictly to room geometry.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Custom Furniture & Joinery" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-item" id="svc-4">
+            <button class="service-item__trigger" type="button" aria-expanded="false">
+              <span class="service-item__num">05</span>
+              <span class="service-item__title">Furniture &amp; D&eacute;cor Curation</span>
+              <span class="service-item__timeline">6&ndash;12 Weeks</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    Collectible design pieces, hand-loomed rugs, sheer Belgian flax drapery, and museum-grade art installation.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Furniture & Decor Curation" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-item" id="svc-5">
+            <button class="service-item__trigger" type="button" aria-expanded="false">
+              <span class="service-item__num">06</span>
+              <span class="service-item__title">Lighting Design</span>
+              <span class="service-item__timeline">3&ndash;6 Weeks</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    Warm 2400K indirect coves, dimmable brass fixtures, and Lutron scene calibration for morning clarity and evening stillness.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Lighting Design" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-item" id="svc-6">
+            <button class="service-item__trigger" type="button" aria-expanded="false">
+              <span class="service-item__num">07</span>
+              <span class="service-item__title">Design Consultation</span>
+              <span class="service-item__timeline">1&ndash;2 Weeks</span>
+              <span class="service-item__icon" aria-hidden="true"></span>
+            </button>
+            <div class="service-item__panel">
+              <div class="service-item__panel-inner">
+                <div class="service-item__body">
+                  <p class="service-item__desc">
+                    Direct principal advisory session evaluating acquisition feasibility, spatial flow, or palette restraint.
+                  </p>
+                  <a href="#contact" class="link-arrow" data-enquire-subject="Design Consultation" data-cursor="pointer">
+                    Enquire &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         6B. SIX QUIET PHASES (Standalone Horizontal Timeline)
+         ==================================================================== -->
+    <section class="section process-section hairline-top" id="processSection">
+      <div class="container">
+        <div class="reveal-up">
+          <span class="eyebrow">Architectural Methodology</span>
+          <h2 class="heading-section section-head__title">Six Quiet Phases</h2>
+        </div>
+
+        <div class="process-timeline" id="processTrack">
+          <div class="process-step">
+            <span class="process-step__num">01</span>
+            <div>
+              <h3 class="heading-sub process-step__title">Discovery</h3>
+              <p class="process-step__desc">Full laser survey, light study, and an unhurried brief around how you live.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <span class="process-step__num">02</span>
+            <div>
+              <h3 class="heading-sub process-step__title">Concept</h3>
+              <p class="process-step__desc">Spatial narrative, tonal restraint, physical timber and stone sample boxes.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <span class="process-step__num">03</span>
+            <div>
+              <h3 class="heading-sub process-step__title">Detailing</h3>
+              <p class="process-step__desc">1:20 bespoke millwork drawings, acoustic schematics, and structural coordination.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <span class="process-step__num">04</span>
+            <div>
+              <h3 class="heading-sub process-step__title">Atelier Craft</h3>
+              <p class="process-step__desc">Direct quarry stone selection, flitch grain matching, and European workshop bench-craft.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <span class="process-step__num">05</span>
+            <div>
+              <h3 class="heading-sub process-step__title">Execution</h3>
+              <p class="process-step__desc">Weekly architect stewardship aligning miter joints, stone grain, and acoustic tolerances.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <span class="process-step__num">06</span>
+            <div>
+              <h3 class="heading-sub process-step__title">Handover</h3>
+              <p class="process-step__desc">Curated art placement, linen pressing, 2400K evening lighting scenes, and your care dossier.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         7. MATERIALS & STUDIO ("Pieces You Will Love")
+         ==================================================================== -->
+    <section class="section hairline-top" id="materials" data-section="materials">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__left reveal-up">
+            <span class="eyebrow">05 / Materials &amp; Studio</span>
+            <h2 class="heading-section section-head__title">Pieces You Will Love</h2>
+            <p class="lead section-head__sub">Every detail is chosen with care.</p>
+          </div>
+
+          <!-- Category Tabs -->
+          <div class="filter-tabs reveal-up" role="tablist" aria-label="Material and piece categories" id="materialTabs">
+            <button class="filter-tab is-active" type="button" data-mat-cat="Furniture">Furniture</button>
+            <button class="filter-tab" type="button" data-mat-cat="Lighting">Lighting</button>
+            <button class="filter-tab" type="button" data-mat-cat="Surfaces">Surfaces &amp; Materials</button>
+            <button class="filter-tab" type="button" data-mat-cat="Textiles">Textiles</button>
+            <button class="filter-tab" type="button" data-mat-cat="Decor">D&eacute;cor &amp; Art</button>
+            <button class="filter-tab" type="button" data-mat-cat="Custom">Custom Pieces</button>
+          </div>
+        </div>
+
+        <!-- Featured-Piece Spotlight (1 Photo reused across 01/04 slides with blur cross-dissolve) -->
+        <div class="spotlight-card reveal-up" id="spotlightCard">
+          <div class="spotlight-media" data-cursor="view">
+            <img
+              src="assets/images/13-featured-piece.jpg"
+              data-image-slot="featuredPiece"
+              alt="VELORE Arc Lounge Chair in warm cream-taupe bouclé on brushed dark bronze swivel plinth"
+              class="spotlight-media__img"
+              id="spotlightImg"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="spotlight-body">
+            <div class="spotlight-body__top">
+              <span class="eyebrow eyebrow--plain" id="spotlightCategory">Signature Edition</span>
+              <div class="rolling-counter" style="gap: 0.2rem;">
+                <div class="rolling-counter__slot" style="height: 1.9rem;">
+                  <div class="rolling-counter__reel" id="spotlightCounterReel">
+                    <span style="height: 1.9rem; line-height: 1.9rem; font-size: 1.45rem;">01</span>
+                    <span style="height: 1.9rem; line-height: 1.9rem; font-size: 1.45rem;">02</span>
+                    <span style="height: 1.9rem; line-height: 1.9rem; font-size: 1.45rem;">03</span>
+                    <span style="height: 1.9rem; line-height: 1.9rem; font-size: 1.45rem;">04</span>
+                  </div>
+                </div>
+                <span class="rolling-counter__total" style="font-size: 0.78rem;">/ 04</span>
+              </div>
+            </div>
+
+            <h3 class="heading-sub" id="spotlightName">VELORE ARC LOUNGE CHAIR</h3>
+            <p class="text-muted" id="spotlightDesc" style="margin-top: 0.65rem;">
+              A quiet study in posture and volume &mdash; enveloping curved backrest upholstered in Belgian heavy-loop bouclé over a concealed bronze swivel plinth.
+            </p>
+
+            <div class="spotlight-specs">
+              <div>
+                <span class="project-spec__k">Material</span>
+                <span class="project-spec__v" id="spotlightMaterial">Heavy Boucl&eacute; &amp; Bronze</span>
+              </div>
+              <div>
+                <span class="project-spec__k">Dimensions</span>
+                <span class="project-spec__v" id="spotlightDimensions">78 &times; 76 &times; 72 cm</span>
+              </div>
+              <div>
+                <span class="project-spec__k">Colour Swatches</span>
+                <div class="swatch-list" id="spotlightSwatches">
+                  <button class="swatch-dot is-active" type="button" style="background: #E2D5C3;" data-swatch="Warm Oat" aria-label="Warm Oat finish"></button>
+                  <button class="swatch-dot" type="button" style="background: #A89886;" data-swatch="Muted Taupe" aria-label="Muted Taupe finish"></button>
+                  <button class="swatch-dot" type="button" style="background: #4A3526;" data-swatch="Walnut Suede" aria-label="Walnut Suede finish"></button>
+                  <button class="swatch-dot" type="button" style="background: #2A1E17;" data-swatch="Espresso Wool" aria-label="Espresso Wool finish"></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="spotlight-controls">
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn--filled btn--sm magnetic"
+                  id="spotlightEnquireBtn"
+                  data-cursor="pointer"
+                >
+                  Enquire
+                </button>
+                <button
+                  type="button"
+                  class="btn btn--outlined btn--sm"
+                  id="spotlightSaveBtn"
+                  data-cursor="pointer"
+                >
+                  Save to Wishlist
+                </button>
+              </div>
+
+              <div class="arrow-pair">
+                <button class="circle-arrow" type="button" id="spotlightPrev" aria-label="Previous featured piece">&larr;</button>
+                <button class="circle-arrow" type="button" id="spotlightNext" aria-label="Next featured piece">&rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Three-Piece Signature Furniture Gallery (Clean Framing, Inspect | Enquire) -->
+        <div class="luxury-pieces-grid reveal-up" id="luxuryPiecesGrid" aria-label="Curated signature furniture pieces">
+          <article class="luxury-piece-card is-active" data-spotlight-jump="0">
+            <div class="luxury-piece-card__media corner-frame" role="button" tabindex="0" aria-label="Inspect Velore Arc Lounge Chair in spotlight" data-cursor="view">
+              <span class="luxury-piece-card__badge">01 / Seating</span>
+              <img
+                src="assets/images/13-featured-piece.jpg"
+                data-image-slot="featuredPiece"
+                alt="Velore Arc Lounge Chair upholstered in Belgian heavy-loop bouclé"
+                class="luxury-piece-card__img luxury-piece-card__img--arc"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="luxury-piece-card__body">
+              <span class="luxury-piece-card__kicker">Signature Edition</span>
+              <h3 class="luxury-piece-card__title">Velore Arc Lounge Chair</h3>
+              <p class="luxury-piece-card__mat">Belgian Heavy Boucl&eacute; &bull; Brushed Bronze Plinth</p>
+              <div class="luxury-piece-card__footer">
+                <div class="luxury-piece-card__actions">
+                  <button type="button" class="luxury-piece-card__link" data-spotlight-focus="0">Inspect</button>
+                  <span class="luxury-piece-card__sep" aria-hidden="true">|</span>
+                  <button type="button" class="luxury-piece-card__link" data-luxury-enquire="Velore Arc Lounge Chair">Enquire</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="luxury-piece-card" data-spotlight-jump="1">
+            <div class="luxury-piece-card__media corner-frame" role="button" tabindex="0" aria-label="Inspect Sovereign Travertine and Saddle Suite in spotlight" data-cursor="view">
+              <span class="luxury-piece-card__badge">02 / Stone &amp; Hide</span>
+              <img
+                src="assets/images/03-space-living.jpg"
+                data-image-slot="spaceLiving"
+                alt="Sovereign Roman travertine monolith coffee table beside stitched cognac saddle lounge armchair"
+                class="luxury-piece-card__img luxury-piece-card__img--travertine"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="luxury-piece-card__body">
+              <span class="luxury-piece-card__kicker">Living Atelier</span>
+              <h3 class="luxury-piece-card__title">Sovereign Travertine Table</h3>
+              <p class="luxury-piece-card__mat">Honed Roman Travertine &bull; Cognac Saddle Hide</p>
+              <div class="luxury-piece-card__footer">
+                <div class="luxury-piece-card__actions">
+                  <button type="button" class="luxury-piece-card__link" data-spotlight-focus="1">Inspect</button>
+                  <span class="luxury-piece-card__sep" aria-hidden="true">|</span>
+                  <button type="button" class="luxury-piece-card__link" data-luxury-enquire="Sovereign Travertine &amp; Saddle Suite">Enquire</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="luxury-piece-card" data-spotlight-jump="2">
+            <div class="luxury-piece-card__media corner-frame" role="button" tabindex="0" aria-label="Inspect Aurelia Champagne Halo Pendant in spotlight" data-cursor="view">
+              <span class="luxury-piece-card__badge">03 / Luminaire</span>
+              <img
+                src="assets/images/02-space-dining.jpg"
+                data-image-slot="spaceDining"
+                alt="Aurelia hand-brushed champagne brass halo pendant floating above smoked walnut dining table"
+                class="luxury-piece-card__img luxury-piece-card__img--aurelia"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="luxury-piece-card__body">
+              <span class="luxury-piece-card__kicker">Dining Atelier</span>
+              <h3 class="luxury-piece-card__title">Aurelia Halo Pendant</h3>
+              <p class="luxury-piece-card__mat">Unlacquered Champagne Brass &bull; 2400K Warm</p>
+              <div class="luxury-piece-card__footer">
+                <div class="luxury-piece-card__actions">
+                  <button type="button" class="luxury-piece-card__link" data-spotlight-focus="2">Inspect</button>
+                  <span class="luxury-piece-card__sep" aria-hidden="true">|</span>
+                  <button type="button" class="luxury-piece-card__link" data-luxury-enquire="Aurelia Champagne Halo Pendant">Enquire</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="luxury-piece-card" data-spotlight-jump="3">
+            <div class="luxury-piece-card__media corner-frame" role="button" tabindex="0" aria-label="Inspect Komorebi Fluted Walnut Suite in spotlight" data-cursor="view">
+              <span class="luxury-piece-card__badge">04 / Joinery</span>
+              <img
+                src="assets/images/04-space-bedroom.jpg"
+                data-image-slot="spaceBedroom"
+                alt="Komorebi smoked European walnut fluted joinery and bed suite with brushed bronze details"
+                class="luxury-piece-card__img luxury-piece-card__img--komorebi"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="luxury-piece-card__body">
+              <span class="luxury-piece-card__kicker">Atelier Joinery</span>
+              <h3 class="luxury-piece-card__title">Komorebi Walnut Suite</h3>
+              <p class="luxury-piece-card__mat">Smoked European Walnut &bull; Brushed Bronze Pulls</p>
+              <div class="luxury-piece-card__footer">
+                <div class="luxury-piece-card__actions">
+                  <button type="button" class="luxury-piece-card__link" data-spotlight-focus="3">Inspect</button>
+                  <span class="luxury-piece-card__sep" aria-hidden="true">|</span>
+                  <button type="button" class="luxury-piece-card__link" data-luxury-enquire="Komorebi Fluted Walnut Suite">Enquire</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Category Piece Cards (CSS Texture Swatches, dynamically rendered by script.js) -->
+        <div class="piece-grid" id="pieceGrid" aria-live="polite"></div>
+
+        <!-- Materials Matter: Interactive Material Swatch Explorer -->
+        <div class="materials-matter reveal-up" id="materialsMatter">
+          <div class="materials-matter__header">
+            <div style="max-width: 620px;">
+              <span class="eyebrow">Material Provenance</span>
+              <h3 class="heading-section section-head__title" style="margin-bottom: 0.75rem;">Materials Matter.</h3>
+              <p class="lead">
+                Raw geological stone, slow-grown European timber, and living brass that patinate gracefully with decades of touch.
+              </p>
+            </div>
+            <a href="#contact" class="btn btn--outlined magnetic" data-enquire-subject="Design Consultation" data-cursor="pointer">
+              Request Sample Box &rarr;
+            </a>
+          </div>
+
+          <div class="swatch-explorer">
+            <div class="swatch-stage corner-frame" id="swatchStage">
+              <div class="swatch-stage__tex tex-wood" id="swatchStageTex"></div>
+              <div class="swatch-stage__scrim" aria-hidden="true"></div>
+              <div class="swatch-stage__info">
+                <span class="eyebrow eyebrow--plain" id="swatchIndex">01 / Timber</span>
+                <h4 class="heading-sub" id="swatchTitle" style="margin-top: 0.45rem;">European Smoked Walnut</h4>
+                <div class="swatch-stage__meta">
+                  <div>
+                    <span class="project-spec__k">Surface Finish</span>
+                    <span class="project-spec__v" id="swatchFinish">Hand-Rubbed Raw Beeswax Oil</span>
+                  </div>
+                  <div>
+                    <span class="project-spec__k">Where Used</span>
+                    <span class="project-spec__v" id="swatchUsage">Fluted Library Walls &amp; Dining Monoliths</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="swatch-selector" id="swatchSelector" role="tablist" aria-label="Explore material swatches">
+              <button class="swatch-btn is-active" type="button" role="tab" aria-selected="true" data-swatch-key="wood">
+                <span class="swatch-btn__chip tex-wood" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Natural Wood</span>
+                  <span class="swatch-btn__finish">FSC Walnut &amp; Smoked Oak</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn" type="button" role="tab" aria-selected="false" data-swatch-key="stone">
+                <span class="swatch-btn__chip tex-stone" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Natural Stone</span>
+                  <span class="swatch-btn__finish">Roman Travertine &amp; Basalt</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn" type="button" role="tab" aria-selected="false" data-swatch-key="metal">
+                <span class="swatch-btn__chip tex-metal" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Brushed Brass</span>
+                  <span class="swatch-btn__finish">Unlacquered Champagne Metal</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn" type="button" role="tab" aria-selected="false" data-swatch-key="fabric">
+                <span class="swatch-btn__chip tex-fabric" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Belgian Linen &amp; Boucl&eacute;</span>
+                  <span class="swatch-btn__finish">Unbleached Wool &amp; Flax Weave</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn" type="button" role="tab" aria-selected="false" data-swatch-key="leather">
+                <span class="swatch-btn__chip tex-leather" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Saddle Leather</span>
+                  <span class="swatch-btn__finish">Vegetable-Tanned Full-Grain</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn" type="button" role="tab" aria-selected="false" data-swatch-key="plaster">
+                <span class="swatch-btn__chip tex-plaster" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Mineral Plaster</span>
+                  <span class="swatch-btn__finish">Hand-Troweled Lime &amp; Stone Dust</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inside the Studio (4 Icon Cards) -->
+        <div class="reveal-up">
+          <span class="eyebrow" style="margin-bottom: 1.35rem;">Inside the Studio</span>
+          <div class="studio-cards">
+            <div class="studio-card">
+              <svg class="studio-card__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <rect x="4" y="5" width="7" height="18" rx="1" />
+                <rect x="13" y="5" width="7" height="18" rx="1" />
+                <path d="M22 8l2 14" />
+              </svg>
+              <h4 class="studio-card__title">Material Library</h4>
+              <p class="studio-card__desc">Over 1,800 archived timbers, stone slabs, patinated metals, and European textiles curated in-house.</p>
+            </div>
+
+            <div class="studio-card">
+              <svg class="studio-card__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <circle cx="14" cy="14" r="9" />
+                <path d="M9 14h10M14 9v10" />
+              </svg>
+              <h4 class="studio-card__title">Sample Room</h4>
+              <p class="studio-card__desc">A calm, daylight-calibrated gallery where clients examine materials under morning and 2700K evening light.</p>
+            </div>
+
+            <div class="studio-card">
+              <svg class="studio-card__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <path d="M4 22h20M7 22V10l7-5 7 5v12" />
+                <path d="M11 22v-6h6v6" />
+              </svg>
+              <h4 class="studio-card__title">Custom Workshop</h4>
+              <p class="studio-card__desc">Partner joinery bench dedicated exclusively to VELORE cabinetry tolerances and prototype seating frames.</p>
+            </div>
+
+            <div class="studio-card">
+              <svg class="studio-card__icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <path d="M5 14l6 6L23 8" />
+                <rect x="3" y="3" width="22" height="22" rx="3" stroke-opacity="0.4" />
+              </svg>
+              <h4 class="studio-card__title">Site Supervision</h4>
+              <p class="studio-card__desc">Direct architect presence throughout installation ensuring every reveal, shadow gap, and slab aligns cleanly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         8. CONTACT & JOURNAL
+         ==================================================================== -->
+    <section class="section section--alt hairline-top" id="contact" data-section="contact">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__left reveal-up">
+            <span class="eyebrow">06 / Private Consultation</span>
+            <h2 class="heading-section section-head__title">Let&rsquo;s Create Something Beautiful.</h2>
+            <p class="lead section-head__sub">
+              Share your property timeline and aspirations. Our principal desk responds within one business day to schedule an unhurried private meeting.
+            </p>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="enquiry-form reveal-up">
+            <form id="enquiryForm" novalidate>
+              <div class="form-stepper" aria-label="Consultation brief progress">
+                <div class="form-stepper__item is-active" data-step-indicator="1">
+                  <span class="form-stepper__num">01</span>
+                  <span class="form-stepper__label">Your Space</span>
+                </div>
+                <div class="form-stepper__item" data-step-indicator="2">
+                  <span class="form-stepper__num">02</span>
+                  <span class="form-stepper__label">Budget &amp; Pace</span>
+                </div>
+                <div class="form-stepper__item" data-step-indicator="3">
+                  <span class="form-stepper__num">03</span>
+                  <span class="form-stepper__label">Contact Details</span>
+                </div>
+              </div>
+
+              <!-- Step 1: Space Type, Location & Size -->
+              <div class="form-step is-active" data-form-step="1">
+                <h3 class="heading-sub form-step__title">Tell us about your space</h3>
+                <div class="form-grid">
+                  <div class="form-field form-field--full">
+                    <label class="form-label" for="projectType">Commission / Scope *</label>
+                    <select class="form-input" id="projectType" name="projectType">
+                      <option value="Full Interior Design">Full Interior Design</option>
+                      <option value="Space Planning & Layout">Space Planning &amp; Layout</option>
+                      <option value="Turnkey Execution">Turnkey Execution</option>
+                      <option value="Custom Furniture & Joinery">Custom Furniture &amp; Joinery</option>
+                      <option value="Furniture & Decor Curation">Furniture &amp; D&eacute;cor Curation</option>
+                      <option value="Lighting Design">Lighting Design</option>
+                      <option value="Design Consultation">Design Consultation</option>
+                    </select>
+                    <span class="form-underline"></span>
+                  </div>
+
+                  <div class="form-field">
+                    <label class="form-label" for="projectLocation">Location *</label>
+                    <input class="form-input" id="projectLocation" name="location" type="text" placeholder="e.g. Zurich, London, Mallorca" required />
+                    <span class="form-underline"></span>
+                  </div>
+
+                  <div class="form-field">
+                    <label class="form-label" for="projectArea">Approximate Size</label>
+                    <input class="form-input" id="projectArea" name="area" type="text" placeholder="e.g. 420 m² / Single Suite" />
+                    <span class="form-underline"></span>
+                  </div>
+                </div>
+
+                <div class="form-error" id="formErrorStep1" aria-live="polite"></div>
+                <div class="form-nav">
+                  <span class="eyebrow eyebrow--plain">Step 01 of 03</span>
+                  <button type="button" class="btn btn--outlined magnetic" data-step-next="2" data-cursor="pointer">
+                    Continue to Budget &rarr;
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 2: Budget & Timeline -->
+              <div class="form-step" data-form-step="2">
+                <h3 class="heading-sub form-step__title">Anticipated budget &amp; timeline</h3>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label class="form-label" for="budgetRange">Anticipated Budget</label>
+                    <select class="form-input" id="budgetRange" name="budget">
+                      <option value="$150k - $350k">&dollar;150k &ndash; &dollar;350k</option>
+                      <option value="$350k - $750k">&dollar;350k &ndash; &dollar;750k</option>
+                      <option value="$750k - $1.5M+">&dollar;750k &ndash; &dollar;1.5M+</option>
+                      <option value="Bespoke Piece / Advisory">Bespoke Piece / Advisory</option>
+                    </select>
+                    <span class="form-underline"></span>
+                  </div>
+
+                  <div class="form-field">
+                    <label class="form-label" for="projectTimeline">Target Timeline</label>
+                    <select class="form-input" id="projectTimeline" name="timeline">
+                      <option value="Immediate discovery (1-2 months)">Immediate discovery (1&ndash;2 months)</option>
+                      <option value="Upcoming season (3-6 months)">Upcoming season (3&ndash;6 months)</option>
+                      <option value="New build / long horizon (6-12+ months)">New build / Long horizon (6&ndash;12+ months)</option>
+                    </select>
+                    <span class="form-underline"></span>
+                  </div>
+
+                  <div class="form-field form-field--full">
+                    <label class="form-label" for="projectMessage">Architectural Mood or Brief</label>
+                    <textarea class="form-input" id="projectMessage" name="message" rows="3" placeholder="Tell us about natural light, structural state, or custom pieces required..."></textarea>
+                    <span class="form-underline"></span>
+                  </div>
+                </div>
+
+                <div class="form-error" id="formErrorStep2" aria-live="polite"></div>
+                <div class="form-nav">
+                  <button type="button" class="link-arrow" data-step-prev="1" data-cursor="pointer">
+                    &larr; Back
+                  </button>
+                  <button type="button" class="btn btn--outlined magnetic" data-step-next="3" data-cursor="pointer">
+                    Continue to Contact &rarr;
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 3: Contact Details -->
+              <div class="form-step" data-form-step="3">
+                <h3 class="heading-sub form-step__title">Private consultation contact</h3>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label class="form-label" for="clientName">Full Name *</label>
+                    <input class="form-input" id="clientName" name="name" type="text" placeholder="Your name" required />
+                    <span class="form-underline"></span>
+                  </div>
+
+                  <div class="form-field">
+                    <label class="form-label" for="clientPhone">Telephone / WhatsApp</label>
+                    <input class="form-input" id="clientPhone" name="phone" type="tel" placeholder="+41 44 000 00 00" />
+                    <span class="form-underline"></span>
+                  </div>
+
+                  <div class="form-field form-field--full">
+                    <label class="form-label" for="clientEmail">Email Address *</label>
+                    <input class="form-input" id="clientEmail" name="email" type="email" placeholder="name@domain.com" required />
+                    <span class="form-underline"></span>
+                  </div>
+                </div>
+
+                <div class="form-error" id="formError" aria-live="polite"></div>
+                <div class="form-nav">
+                  <button type="button" class="link-arrow" data-step-prev="2" data-cursor="pointer">
+                    &larr; Back
+                  </button>
+                  <button type="submit" class="btn btn--filled magnetic" data-cursor="pointer">
+                    Submit Private Brief
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div class="form-success" id="formSuccess" role="status">
+              <span class="eyebrow eyebrow--plain">03 / Confirmation</span>
+              <h3 class="heading-sub" style="margin-top: 0.65rem;">Brief Received.</h3>
+              <p class="text-muted" id="formSuccessSummary" style="margin-top: 0.75rem; max-width: 44ch; margin-inline: auto;">
+                Your private brief has been logged with Elena Voss&rsquo;s studio desk. We respond personally within one business day.
+              </p>
+              <button type="button" class="btn btn--outlined btn--sm" id="resetFormBtn" style="margin-top: 1.75rem;">
+                Submit Another Brief
+              </button>
+            </div>
+          </div>
+
+          <aside class="studio-info-panel reveal-up">
+            <div class="studio-info-row">
+              <span class="project-spec__k">Private Atelier Address</span>
+              <p style="font-size: 0.95rem; color: var(--ivory);">Talstrasse 82, 8001 Z&uuml;rich &bull; 14 Mount Street, London</p>
+            </div>
+
+            <div class="studio-info-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <span class="project-spec__k">Telephone</span>
+                <a href="tel:+41445802410" style="font-size: 0.9rem; color: var(--ivory);">+41 44 580 24 10</a>
+              </div>
+              <div>
+                <span class="project-spec__k">Email</span>
+                <a href="mailto:atelier@velore-interiors.com" style="font-size: 0.9rem; color: var(--ivory);">atelier@velore-interiors.com</a>
+              </div>
+            </div>
+
+            <div class="studio-info-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+              <div>
+                <span class="project-spec__k">Hours</span>
+                <span style="font-size: 0.9rem; color: var(--champagne);">By appointment only</span>
+              </div>
+              <a
+                href="https://wa.me/41445802410?text=Hello%20VELORE%20Studio%2C%20I%20would%20like%20to%20schedule%20a%20private%20consultation."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn--outlined btn--sm"
+                data-cursor="pointer"
+              >
+                WhatsApp Atelier
+              </a>
+            </div>
+
+            <!-- Dark Espresso Architectural District Vector Map -->
+            <div class="studio-map" aria-label="Architectural map locating VELORE Zurich Atelier">
+              <svg viewBox="0 0 480 220" preserveAspectRatio="xMidYMid slice">
+                <rect width="480" height="220" fill="#120D0A" />
+                <g stroke="rgba(216,185,143,0.16)" stroke-width="1" fill="none">
+                  <path d="M0 55 L480 68 M0 115 L480 105 M0 170 L480 182" />
+                  <path d="M85 0 L70 220 M195 0 L215 220 M310 0 L295 220 M410 0 L425 220" />
+                  <path d="M120 58 Q240 118 355 176" stroke="rgba(216,185,143,0.32)" stroke-width="1.5" />
+                </g>
+                <g fill="#A89886" font-family="Jost, sans-serif" font-size="8" letter-spacing="2">
+                  <text x="18" y="48">PARADEPLATZ</text>
+                  <text x="230" y="96">TALSTRASSE 82</text>
+                  <text x="335" y="198">LAKE Z&Uuml;RICH</text>
+                </g>
+                <circle cx="210" cy="112" r="18" fill="rgba(216,185,143,0.12)" stroke="#D8B98F" stroke-width="0.9" />
+                <circle cx="210" cy="112" r="4.5" fill="#D8B98F" />
+              </svg>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         9. FINAL CTA SCENE
+         ==================================================================== -->
+    <section class="final-cta" id="cta" aria-label="Begin your commission">
+      <div class="final-cta__bg">
+        <img
+          src="assets/images/01-hero-interior.jpg"
+          data-image-slot="heroInterior"
+          alt="VELORE living sanctuary tinted in deep twilight espresso"
+          class="final-cta__img crop-cta-dark"
+          id="finalCtaImg"
+          loading="lazy"
+        />
+      </div>
+      <div class="scene__vignette scene__vignette--center" aria-hidden="true"></div>
+      <canvas class="particle-canvas" data-particles="cta" aria-hidden="true"></canvas>
+
+      <div class="final-cta__content reveal-up">
+        <span class="eyebrow eyebrow--plain">Begin a Conversation</span>
+        <h2 class="heading-display" style="margin-top: 0.9rem;">LIVE WITH DESIGN.</h2>
+        <p class="lead" style="margin: 1.15rem auto 0;">
+          Spaces shaped around your stillness, your rituals, and the quiet legacy of fine architecture.
+        </p>
+        <div class="btn-group">
+          <a href="#contact" class="btn btn--filled magnetic" data-cursor="pointer">
+            Book Your Consultation
+          </a>
+          <button
+            type="button"
+            class="btn btn--outlined magnetic"
+            id="downloadLookbookBtn"
+            data-cursor="pointer"
+          >
+            Download Lookbook
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       MODALS (Search, Wishlist, Project Detail, Journal Essay, Legal)
+       ====================================================================== -->
+  <div class="modal-backdrop" id="appModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Close modal">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Scripts: GSAP + ScrollTrigger + Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
