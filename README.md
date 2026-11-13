@@ -2,7 +2,7 @@
 
 # VELORE Atelier — Interior Architecture & Design
 
-> Private-client interior architecture and bespoke joinery across Zürich, London, and international commissions.
+> Private-client interior architecture and bespoke joinery based in Malappuram, Kerala, executing commissions across South India and international private residences.
 
 ## Overview
 VELORE is an editorial luxury interior architecture web experience featuring:
