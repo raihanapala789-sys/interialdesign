@@ -1459,155 +1459,40 @@ function initBeforeAfterScrollScrub(prefersReducedMotion) {
 }
 
 /* ==========================================================================
-   Horizontal Scroll Portfolio (Pinned Scroll-Driven Showcase & Progress Bar)
+   Featured Portfolio Showcase (3-Card Screen Grid + Interactive Sweeps)
    ========================================================================== */
 function initHorizontalPortfolio() {
-  const section = document.getElementById('portfolio');
-  const viewport = document.getElementById('portfolioViewport');
   const list = document.getElementById('portfolioList');
-  const indexEl = document.getElementById('portfolioIndex');
-  const fillEl = document.getElementById('portfolioProgressFill');
-  const prevBtn = document.getElementById('portfolioPrevBtn');
-  const nextBtn = document.getElementById('portfolioNextBtn');
+  if (!list) return;
 
-  if (!section || !viewport || !list) return;
-
-  const getVisibleRows = () =>
-    Array.from(list.querySelectorAll('.project-row:not(.is-hidden)'));
-
-  let portfolioST = null;
-  let horizontalTween = null;
-
-  const updateProgress = (progress) => {
-    const rows = getVisibleRows();
-    const total = rows.length || 1;
-    if (total <= 1) {
-      if (indexEl) indexEl.textContent = '01 / 01';
-      if (fillEl) fillEl.style.transform = 'scaleX(1)';
-      return;
-    }
-
-    // Determine active index: 0, 1, 2...
-    const activeIdx = Math.min(total - 1, Math.max(0, Math.floor(progress * total * 0.999)));
-    if (indexEl) {
-      indexEl.textContent = `${String(activeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
-    }
-    if (fillEl) {
-      const minRatio = 1 / total;
-      const fillRatio = minRatio + (1 - minRatio) * progress;
-      fillEl.style.transform = `scaleX(${Math.min(1, Math.max(minRatio, fillRatio))})`;
-    }
-
-    // Smoothly animate the before/after slider for the active card as it passes through view
-    rows.forEach((row, rIdx) => {
-      const slider = row.querySelector('[data-ba-slider]');
-      if (!slider || !slider._glideBaPct || slider._baState?.dragging) return;
-
-      const cardStart = rIdx / total;
-      const cardEnd = (rIdx + 1) / total;
-      if (progress >= cardStart && progress <= cardEnd) {
-        const localProg = (progress - cardStart) / (cardEnd - cardStart);
-        // Reveal after image as card becomes centered
-        const targetPct = 80 - localProg * 60; // 80% down to 20%
-        slider._glideBaPct(targetPct);
-      }
-    });
-  };
-
-  const createPortfolioTimeline = () => {
-    if (portfolioST) {
-      portfolioST.kill();
-      portfolioST = null;
-    }
-    if (horizontalTween) {
-      horizontalTween.kill();
-      horizontalTween = null;
-    }
-
+  // Clear any leftover GSAP transforms
+  if (typeof gsap !== 'undefined') {
     gsap.set(list, { clearProps: 'x,transform' });
+  }
 
-    const rows = getVisibleRows();
-    if (rows.length <= 1) {
-      updateProgress(0);
-      return;
-    }
+  // Set up each Before/After slider on the 3 cards
+  const sliders = list.querySelectorAll('[data-ba-slider]');
+  sliders.forEach((slider) => {
+    // Set 50% split immediately so both Before and After are prominently displayed
+    slider._setBaPctImmediate?.(50);
 
-    const getScrollDistance = () => Math.max(0, list.scrollWidth - viewport.clientWidth);
-    const scrollDistance = getScrollDistance();
-
-    if (scrollDistance <= 10) {
-      updateProgress(0);
-      return;
-    }
-
-    // Create the horizontal tween
-    horizontalTween = gsap.to(list, {
-      x: () => -getScrollDistance(),
-      ease: 'none',
-      paused: true
-    });
-
-    // Pinned ScrollTrigger: locks vertically while scrolling through cards,
-    // then cleanly unpins and continues down to the next section
-    portfolioST = ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: () => `+=${Math.max(window.innerHeight * 1.6, getScrollDistance() * 1.15)}`,
-      pin: true,
-      anticipatePin: 1,
-      scrub: 0.8,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        if (horizontalTween) horizontalTween.progress(self.progress);
-        updateProgress(self.progress);
+    // Subtle interactive preview glide on mouse hover
+    slider.addEventListener('mouseenter', () => {
+      if (!slider._baState?.dragging && slider._glideBaPct) {
+        slider._glideBaPct(28); // Reveal luxury finished interior
       }
     });
 
-    updateProgress(portfolioST.progress || 0);
-  };
-
-  createPortfolioTimeline();
-
-  // Prev / Next button navigation: scrolls vertically to advance the pinned timeline
-  const scrollBySlide = (direction) => {
-    const rows = getVisibleRows();
-    const total = rows.length;
-    if (total <= 1 || !portfolioST) return;
-
-    const currentProgress = portfolioST.progress || 0;
-    const currentIdx = Math.min(total - 1, Math.max(0, Math.round(currentProgress * (total - 1))));
-    const targetIdx = Math.min(total - 1, Math.max(0, currentIdx + direction));
-    const targetProgress = targetIdx / (total - 1);
-    const targetY = portfolioST.start + (portfolioST.end - portfolioST.start) * targetProgress;
-
-    if (window.veloreScrollTo) {
-      window.veloreScrollTo(targetY);
-    } else {
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-    }
-  };
-
-  prevBtn?.addEventListener('click', () => scrollBySlide(-1));
-  nextBtn?.addEventListener('click', () => scrollBySlide(1));
-
-  // Map horizontal wheel swipe gestures into vertical window scroll while hovering portfolio
-  viewport.addEventListener(
-    'wheel',
-    (e) => {
-      if (!portfolioST || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-      window.scrollBy({ top: e.deltaX * 0.8, behavior: 'auto' });
-    },
-    { passive: true }
-  );
-
-  // Re-calculate on filter change or window resize
-  document.addEventListener('velore:portfolioFiltered', () => {
-    createPortfolioTimeline();
-    ScrollTrigger.refresh();
+    slider.addEventListener('mouseleave', () => {
+      if (!slider._baState?.dragging && slider._glideBaPct) {
+        slider._glideBaPct(50); // Restore balanced split
+      }
+    });
   });
 
-  window.addEventListener('resize', () => {
-    createPortfolioTimeline();
+  // Re-refresh ScrollTrigger when typologies are filtered
+  document.addEventListener('velore:portfolioFiltered', () => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
   });
 }
 
