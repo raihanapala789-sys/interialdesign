@@ -1451,110 +1451,164 @@ function initBeforeAfterSliders() {
 }
 
 function initBeforeAfterScrollScrub(prefersReducedMotion) {
-  if (prefersReducedMotion || typeof ScrollTrigger === 'undefined') return;
-
+  if (prefersReducedMotion) return;
   const cfg = VELORE_CONFIG.portfolioSlider;
   document.querySelectorAll('[data-ba-slider]').forEach((slider) => {
-    if (!slider._glideBaPct) return;
     slider._setBaPctImmediate?.(cfg.startPct);
-
-    const syncFromScroll = (progress) => {
-      if (slider._baState?.dragging) return;
-      const targetPct = cfg.startPct + (cfg.endPct - cfg.startPct) * progress;
-      slider._glideBaPct(targetPct);
-    };
-
-    ScrollTrigger.create({
-      trigger: slider,
-      start: cfg.start,
-      end: cfg.end,
-      onUpdate: (self) => syncFromScroll(self.progress),
-      onLeave: () => {
-        if (!slider._baState?.dragging) slider._glideBaPct(cfg.endPct);
-      },
-      onLeaveBack: () => {
-        if (!slider._baState?.dragging) slider._glideBaPct(cfg.startPct);
-      }
-    });
   });
 }
 
 /* ==========================================================================
-   Horizontal Scroll Portfolio (Drag, Arrows, Index Counter & Progress Bar)
+   Horizontal Scroll Portfolio (Pinned Scroll-Driven Showcase & Progress Bar)
    ========================================================================== */
 function initHorizontalPortfolio() {
+  const section = document.getElementById('portfolio');
   const viewport = document.getElementById('portfolioViewport');
+  const list = document.getElementById('portfolioList');
   const indexEl = document.getElementById('portfolioIndex');
   const fillEl = document.getElementById('portfolioProgressFill');
   const prevBtn = document.getElementById('portfolioPrevBtn');
   const nextBtn = document.getElementById('portfolioNextBtn');
-  if (!viewport) return;
+
+  if (!section || !viewport || !list) return;
 
   const getVisibleRows = () =>
-    Array.from(viewport.querySelectorAll('.project-row:not(.is-hidden)'));
+    Array.from(list.querySelectorAll('.project-row:not(.is-hidden)'));
 
-  const syncProgress = () => {
+  let portfolioST = null;
+  let horizontalTween = null;
+
+  const updateProgress = (progress) => {
     const rows = getVisibleRows();
     const total = rows.length || 1;
-    let activeIdx = 0;
-
-    if (total > 1 && rows[1]) {
-      const stepWidth = Math.max(1, rows[1].offsetLeft - rows[0].offsetLeft);
-      activeIdx = Math.min(total - 1, Math.max(0, Math.round(viewport.scrollLeft / stepWidth)));
+    if (total <= 1) {
+      if (indexEl) indexEl.textContent = '01 / 01';
+      if (fillEl) fillEl.style.transform = 'scaleX(1)';
+      return;
     }
 
-    const ratio = total <= 1 ? 1 : (activeIdx + 1) / total;
+    // Determine active index: 0, 1, 2...
+    const activeIdx = Math.min(total - 1, Math.max(0, Math.floor(progress * total * 0.999)));
     if (indexEl) {
       indexEl.textContent = `${String(activeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     }
     if (fillEl) {
-      fillEl.style.transform = `scaleX(${ratio})`;
+      const minRatio = 1 / total;
+      const fillRatio = minRatio + (1 - minRatio) * progress;
+      fillEl.style.transform = `scaleX(${Math.min(1, Math.max(minRatio, fillRatio))})`;
     }
+
+    // Smoothly animate the before/after slider for the active card as it passes through view
+    rows.forEach((row, rIdx) => {
+      const slider = row.querySelector('[data-ba-slider]');
+      if (!slider || !slider._glideBaPct || slider._baState?.dragging) return;
+
+      const cardStart = rIdx / total;
+      const cardEnd = (rIdx + 1) / total;
+      if (progress >= cardStart && progress <= cardEnd) {
+        const localProg = (progress - cardStart) / (cardEnd - cardStart);
+        // Reveal after image as card becomes centered
+        const targetPct = 80 - localProg * 60; // 80% down to 20%
+        slider._glideBaPct(targetPct);
+      }
+    });
   };
 
+  const createPortfolioTimeline = () => {
+    if (portfolioST) {
+      portfolioST.kill();
+      portfolioST = null;
+    }
+    if (horizontalTween) {
+      horizontalTween.kill();
+      horizontalTween = null;
+    }
+
+    gsap.set(list, { clearProps: 'x,transform' });
+
+    const rows = getVisibleRows();
+    if (rows.length <= 1) {
+      updateProgress(0);
+      return;
+    }
+
+    const getScrollDistance = () => Math.max(0, list.scrollWidth - viewport.clientWidth);
+    const scrollDistance = getScrollDistance();
+
+    if (scrollDistance <= 10) {
+      updateProgress(0);
+      return;
+    }
+
+    // Create the horizontal tween
+    horizontalTween = gsap.to(list, {
+      x: () => -getScrollDistance(),
+      ease: 'none',
+      paused: true
+    });
+
+    // Pinned ScrollTrigger: locks vertically while scrolling through cards,
+    // then cleanly unpins and continues down to the next section
+    portfolioST = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: () => `+=${Math.max(window.innerHeight * 1.6, getScrollDistance() * 1.15)}`,
+      pin: true,
+      anticipatePin: 1,
+      scrub: 0.8,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        if (horizontalTween) horizontalTween.progress(self.progress);
+        updateProgress(self.progress);
+      }
+    });
+
+    updateProgress(portfolioST.progress || 0);
+  };
+
+  createPortfolioTimeline();
+
+  // Prev / Next button navigation: scrolls vertically to advance the pinned timeline
   const scrollBySlide = (direction) => {
     const rows = getVisibleRows();
-    if (!rows.length) return;
-    const step = rows[1] ? rows[1].offsetLeft - rows[0].offsetLeft : rows[0].offsetWidth;
-    viewport.scrollBy({ left: direction * step, behavior: 'smooth' });
+    const total = rows.length;
+    if (total <= 1 || !portfolioST) return;
+
+    const currentProgress = portfolioST.progress || 0;
+    const currentIdx = Math.min(total - 1, Math.max(0, Math.round(currentProgress * (total - 1))));
+    const targetIdx = Math.min(total - 1, Math.max(0, currentIdx + direction));
+    const targetProgress = targetIdx / (total - 1);
+    const targetY = portfolioST.start + (portfolioST.end - portfolioST.start) * targetProgress;
+
+    if (window.veloreScrollTo) {
+      window.veloreScrollTo(targetY);
+    } else {
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
   };
 
   prevBtn?.addEventListener('click', () => scrollBySlide(-1));
   nextBtn?.addEventListener('click', () => scrollBySlide(1));
 
-  // Mouse drag-to-pan outside the Before/After sliders
-  let isDown = false;
-  let startX = 0;
-  let startScroll = 0;
+  // Map horizontal wheel swipe gestures into vertical window scroll while hovering portfolio
+  viewport.addEventListener(
+    'wheel',
+    (e) => {
+      if (!portfolioST || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      window.scrollBy({ top: e.deltaX * 0.8, behavior: 'auto' });
+    },
+    { passive: true }
+  );
 
-  viewport.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('[data-ba-slider], button, a')) return;
-    isDown = true;
-    startX = e.clientX;
-    startScroll = viewport.scrollLeft;
-    viewport.classList.add('is-dragging');
-    viewport.setPointerCapture?.(e.pointerId);
-  });
-
-  viewport.addEventListener('pointermove', (e) => {
-    if (!isDown) return;
-    viewport.scrollLeft = startScroll - (e.clientX - startX);
-  });
-
-  const endDrag = () => {
-    isDown = false;
-    viewport.classList.remove('is-dragging');
-  };
-
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
-  viewport.addEventListener('scroll', syncProgress, { passive: true });
+  // Re-calculate on filter change or window resize
   document.addEventListener('velore:portfolioFiltered', () => {
-    viewport.scrollTo({ left: 0, behavior: 'smooth' });
-    syncProgress();
+    createPortfolioTimeline();
+    ScrollTrigger.refresh();
   });
 
-  syncProgress();
+  window.addEventListener('resize', () => {
+    createPortfolioTimeline();
+  });
 }
 
 /* ==========================================================================
