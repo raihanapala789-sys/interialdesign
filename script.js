@@ -1196,31 +1196,46 @@ function initCounters(prefersReducedMotion) {
 }
 
 /* ==========================================================================
-   Six Phases Timeline (Staggered Entrance Without Conflicting Pins)
+   Six Quiet Phases (Architectural Boxes — Side-Entrance Scroll Animations)
    ========================================================================== */
 function initHorizontalProcess(prefersReducedMotion) {
-  const steps = document.querySelectorAll('#processTrack .process-step');
-  if (!steps.length || prefersReducedMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+  const cards = document.querySelectorAll('#processGrid .process-card');
+  if (!cards.length) return;
+
+  if (prefersReducedMotion || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    cards.forEach((card) => {
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+    });
     return;
   }
 
-  gsap.fromTo(
-    steps,
-    { opacity: 0, y: 24 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      stagger: 0.1,
-      ease: 'power3.out',
-      clearProps: 'transform,opacity',
-      scrollTrigger: {
-        trigger: '#processTrack',
-        start: 'top 84%',
-        once: true
+  cards.forEach((card) => {
+    const isLeft = card.classList.contains('process-card--left');
+    // Left boxes slide in from left (-100px), Right boxes slide in from right (+100px)
+    const xDist = isLeft ? -100 : 100;
+
+    gsap.fromTo(
+      card,
+      {
+        opacity: 0,
+        x: xDist
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.95,
+        delay: isLeft ? 0 : 0.08,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 86%',
+          once: true
+        }
       }
-    }
-  );
+    );
+  });
 }
 
 /* ==========================================================================

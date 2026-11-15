@@ -2483,58 +2483,133 @@ ol {
   color: var(--taupe);
 }
 
-/* Horizontal Process Timeline (Six Quiet Phases — Standalone Clean Section) */
+/* ==========================================================================
+   Six Quiet Phases — Architectural Process Boxes & Side Scroll Animation
+   ========================================================================== */
 .process-section {
   position: relative;
   isolation: isolate;
   overflow-x: clip;
+  overflow-y: visible;
   background-color: var(--bg-base);
 }
 
-.process-timeline {
+.process-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-  margin-top: 2.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 3.5rem;
 }
 
-.process-step {
-  padding: 2.25rem 1.35rem;
-  border-right: 1px solid var(--hairline);
+.process-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2.25rem;
-  transition: background-color 0.45s var(--ease-editorial);
+  padding: clamp(2rem, 3.2vw, 2.75rem);
+  background: rgba(22, 17, 14, 0.72);
+  background-image: radial-gradient(circle at 100% 0%, rgba(216, 185, 143, 0.06) 0%, transparent 65%);
+  border: 1px solid rgba(216, 185, 143, 0.16);
+  border-radius: var(--radius-card, 14px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.55);
+  transition: transform 0.5s var(--ease-editorial), border-color 0.4s ease, box-shadow 0.5s ease, background-color 0.4s ease;
+  will-change: transform, opacity;
 }
 
-.process-step:last-child {
-  border-right: none;
+/* Subtle architectural top glow line */
+.process-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(216, 185, 143, 0.4) 50%, transparent 100%);
+  pointer-events: none;
 }
 
-.process-step:hover {
-  background-color: rgba(200, 169, 106, 0.04);
+.process-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(216, 185, 143, 0.45);
+  background-color: rgba(27, 21, 17, 0.88);
+  box-shadow: 0 26px 55px -12px rgba(0, 0, 0, 0.75), 0 0 30px rgba(216, 185, 143, 0.08);
 }
 
-.process-step__num {
+.process-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.process-card__num {
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 3.2vw, 3.5rem);
+  font-size: clamp(2.4rem, 3.2vw, 3.4rem);
   font-weight: 300;
   color: var(--champagne);
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
-.process-step__title {
-  margin-bottom: 0.75rem;
-  font-size: 1.15rem;
+.process-card__badge {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  background: rgba(216, 185, 143, 0.08);
+  border: 1px solid rgba(216, 185, 143, 0.22);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-weight: 400;
   white-space: nowrap;
 }
 
-.process-step__desc {
-  font-size: 0.96rem;
-  line-height: 1.6;
+.process-card__body {
+  margin-bottom: 2rem;
+}
+
+.process-card__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 1.75vw, 1.6rem);
+  color: var(--cream);
+  font-weight: 400;
+  margin-bottom: 0.85rem;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+}
+
+.process-card__desc {
+  font-size: 0.98rem;
+  line-height: 1.68;
   color: var(--taupe);
+}
+
+.process-card__footer {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(216, 185, 143, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.process-card__deliverable-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.process-card__deliverable-val {
+  font-size: 0.85rem;
+  color: var(--champagne);
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 /* ==========================================================================
@@ -3650,16 +3725,10 @@ ol {
     padding: 1.5rem;
   }
 
-  .process-timeline {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .process-step {
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .process-step:nth-child(3n) {
-    border-right: none;
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
   }
 
   .testimonials-grid {
@@ -3701,21 +3770,19 @@ ol {
   .room-specs,
   .spotlight-specs,
   .swatch-stage__meta,
-  .process-timeline,
+  .process-grid,
   .form-grid {
     grid-template-columns: 1fr;
   }
 
   .value-card,
-  .process-step,
   .team-card,
   .studio-card {
     border-right: none;
     border-bottom: 1px solid var(--hairline);
   }
 
-  .value-card:last-child,
-  .process-step:last-child {
+  .value-card:last-child {
     border-bottom: none;
   }
 
