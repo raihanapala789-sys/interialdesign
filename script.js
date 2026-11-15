@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHotspots();
   initLightingToggle();
   initBeforeAfterSliders();
-  initHorizontalPortfolio();
+  initRoundPortfolio();
   initServicesInteraction();
   initMaterialsStudio();
   initMaterialSwatchExplorer();
@@ -1460,6 +1460,7 @@ function initBeforeAfterScrollScrub(prefersReducedMotion) {
 
   const cfg = VELORE_CONFIG.portfolioSlider;
   document.querySelectorAll('[data-ba-slider]').forEach((slider) => {
+    if (slider.closest('#portfolioList')) return;
     if (!slider._glideBaPct) return;
     slider._setBaPctImmediate?.(cfg.startPct);
 
@@ -1487,79 +1488,213 @@ function initBeforeAfterScrollScrub(prefersReducedMotion) {
 /* ==========================================================================
    Horizontal Scroll Portfolio (Drag, Arrows, Index Counter & Progress Bar)
    ========================================================================== */
-function initHorizontalPortfolio() {
+/* ==========================================================================
+   Portfolio: Pinned 3D Round Motion Carousel ("One Behind One" Scroll Experience)
+   ========================================================================== */
+function initRoundPortfolio() {
+  const section = document.getElementById('portfolio');
   const viewport = document.getElementById('portfolioViewport');
+  const list = document.getElementById('portfolioList');
   const indexEl = document.getElementById('portfolioIndex');
   const fillEl = document.getElementById('portfolioProgressFill');
   const prevBtn = document.getElementById('portfolioPrevBtn');
   const nextBtn = document.getElementById('portfolioNextBtn');
-  if (!viewport) return;
+  const tabs = document.querySelectorAll('.filter-tabs [data-filter]');
 
-  const getVisibleRows = () =>
-    Array.from(viewport.querySelectorAll('.project-row:not(.is-hidden)'));
+  if (!section || !viewport || !list) return;
 
-  const syncProgress = () => {
-    const rows = getVisibleRows();
-    const total = rows.length || 1;
-    let activeIdx = 0;
+  const getCards = () => Array.from(list.querySelectorAll('.project-row:not(.is-hidden)'));
 
-    if (total > 1 && rows[1]) {
-      const stepWidth = Math.max(1, rows[1].offsetLeft - rows[0].offsetLeft);
-      activeIdx = Math.min(total - 1, Math.max(0, Math.round(viewport.scrollLeft / stepWidth)));
+  let currentP = 0; // Continuous progress float across cards (0 to total-1)
+  let scrollTriggerInstance = null;
+
+  // Calculates 3D transform for card delta = cardIndex - currentP
+  // Negative delta: card has passed front, arcs up and dissolves over top crest
+  // Delta = 0: card is in front focal plane (scale 1, 100% sharp, interactive)
+  // Positive delta: card is waiting behind on circular arc (tilted back, recessed in 3D, peeking out)
+  const applyRoundTransform = (card, delta) => {
+    let y = 0;
+    let z = 0;
+    let rx = 0;
+    let scale = 1;
+    let opacity = 1;
+    let brightness = 1;
+    let blur = 0;
+    let pointerEvents = 'none';
+
+    if (delta >= 0) {
+      // Incoming / Stacked Behind along circular cylinder
+      z = -delta * 130;
+      y = delta * 36;
+      rx = -delta * 6.5;
+      scale = Math.max(0.72, 1 - delta * 0.075);
+      opacity = Math.max(0, 1 - delta * 0.42);
+      brightness = Math.max(0.65, 1 - delta * 0.22);
+      blur = Math.min(2.5, delta * 0.8);
+      if (delta < 0.28) {
+        pointerEvents = 'auto';
+      }
+    } else {
+      // Outgoing / Arcing up & away over top crest in round motion
+      y = delta * 78;
+      z = delta * 95;
+      rx = -delta * 8.5;
+      scale = Math.max(0.75, 1 + delta * 0.09);
+      opacity = Math.max(0, 1 + delta * 1.35);
+      brightness = Math.max(0.5, 1 + delta * 0.35);
+      blur = Math.min(2, Math.abs(delta) * 0.6);
+      pointerEvents = 'none';
     }
 
-    const ratio = total <= 1 ? 1 : (activeIdx + 1) / total;
+    card.style.transform = `translate3d(0px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) rotateX(${rx.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+    card.style.opacity = opacity.toFixed(3);
+    card.style.filter = blur > 0.05 ? `brightness(${brightness.toFixed(2)}) blur(${blur.toFixed(1)}px)` : `brightness(${brightness.toFixed(2)})`;
+    card.style.pointerEvents = pointerEvents;
+    card.style.zIndex = delta < -0.1 ? 1 : Math.round(20 - delta * 4);
+    card.classList.toggle('is-active-card', Math.abs(delta) < 0.35);
+
+    // Subtle automatic Before/After slider reveal when arriving to the front
+    if (Math.abs(delta) < 0.22 && !card._hasAutoSwept) {
+      card._hasAutoSwept = true;
+      const slider = card.querySelector('[data-ba-slider]');
+      if (slider && slider._glideBaPct) {
+        slider._glideBaPct(62);
+      }
+    } else if (Math.abs(delta) > 0.75) {
+      card._hasAutoSwept = false;
+    }
+  };
+
+  const renderRoundMotion = (pFloat) => {
+    const cards = getCards();
+    const total = cards.length;
+    if (!total) return;
+
+    currentP = Math.max(0, Math.min(total - 1, pFloat));
+
+    cards.forEach((card, idx) => {
+      const delta = idx - currentP;
+      applyRoundTransform(card, delta);
+    });
+
+    // Update HUD: index & progress bar
+    const activeIdx = Math.min(total - 1, Math.max(0, Math.round(currentP)));
     if (indexEl) {
       indexEl.textContent = `${String(activeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     }
     if (fillEl) {
-      fillEl.style.transform = `scaleX(${ratio})`;
+      const fillRatio = total <= 1 ? 1 : (currentP + 1) / total;
+      fillEl.style.transform = `scaleX(${Math.min(1, Math.max(0.15, fillRatio)).toFixed(3)})`;
     }
   };
 
-  const scrollBySlide = (direction) => {
-    const rows = getVisibleRows();
-    if (!rows.length) return;
-    const step = rows[1] ? rows[1].offsetLeft - rows[0].offsetLeft : rows[0].offsetWidth;
-    viewport.scrollBy({ left: direction * step, behavior: 'smooth' });
+  // Build or rebuild ScrollTrigger pin
+  const setupScrollTrigger = () => {
+    if (scrollTriggerInstance) {
+      scrollTriggerInstance.kill();
+      scrollTriggerInstance = null;
+    }
+
+    const cards = getCards();
+    const total = cards.length;
+    if (total <= 1 || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      renderRoundMotion(0);
+      return;
+    }
+
+    // Scroll distance proportional to number of cards (~1.15 viewport height per card transition)
+    const pinDistance = window.innerHeight * (total - 1) * 1.15;
+
+    scrollTriggerInstance = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: () => `+=${pinDistance}`,
+      pin: true,
+      anticipatePin: 1,
+      scrub: 0.8,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const floatProgress = self.progress * (total - 1);
+        renderRoundMotion(floatProgress);
+      }
+    });
   };
 
-  prevBtn?.addEventListener('click', () => scrollBySlide(-1));
-  nextBtn?.addEventListener('click', () => scrollBySlide(1));
+  // Navigation helpers for Prev / Next arrows
+  const navigateToCard = (targetIdx) => {
+    const cards = getCards();
+    const total = cards.length;
+    if (!total) return;
+    const clamped = Math.max(0, Math.min(total - 1, targetIdx));
 
-  // Mouse drag-to-pan outside the Before/After sliders
-  let isDown = false;
-  let startX = 0;
-  let startScroll = 0;
-
-  viewport.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('[data-ba-slider], button, a')) return;
-    isDown = true;
-    startX = e.clientX;
-    startScroll = viewport.scrollLeft;
-    viewport.classList.add('is-dragging');
-    viewport.setPointerCapture?.(e.pointerId);
-  });
-
-  viewport.addEventListener('pointermove', (e) => {
-    if (!isDown) return;
-    viewport.scrollLeft = startScroll - (e.clientX - startX);
-  });
-
-  const endDrag = () => {
-    isDown = false;
-    viewport.classList.remove('is-dragging');
+    if (scrollTriggerInstance) {
+      const targetRatio = total > 1 ? clamped / (total - 1) : 0;
+      const targetScroll = scrollTriggerInstance.start + targetRatio * (scrollTriggerInstance.end - scrollTriggerInstance.start);
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(targetScroll, { duration: 0.85 });
+      } else {
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      }
+    } else {
+      renderRoundMotion(clamped);
+    }
   };
 
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
-  viewport.addEventListener('scroll', syncProgress, { passive: true });
-  document.addEventListener('velore:portfolioFiltered', () => {
-    viewport.scrollTo({ left: 0, behavior: 'smooth' });
-    syncProgress();
+  prevBtn?.addEventListener('click', () => {
+    navigateToCard(Math.round(currentP) - 1);
   });
 
-  syncProgress();
+  nextBtn?.addEventListener('click', () => {
+    navigateToCard(Math.round(currentP) + 1);
+  });
+
+  // Filter tabs integration: update cards & restart ScrollTrigger
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const cat = tab.getAttribute('data-filter');
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+
+      const allRows = Array.from(list.querySelectorAll('.project-row'));
+      allRows.forEach((row) => {
+        const categories = (row.getAttribute('data-category') || '').split(' ');
+        const match = cat === 'all' || categories.includes(cat);
+        row.classList.toggle('is-hidden', !match);
+      });
+
+      setupScrollTrigger();
+      renderRoundMotion(0);
+      ScrollTrigger?.refresh?.();
+    });
+  });
+
+  // Keyboard navigation when focusing inside the section
+  section.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+      if (currentP < getCards().length - 1) {
+        e.preventDefault();
+        navigateToCard(Math.round(currentP) + 1);
+      }
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      if (currentP > 0) {
+        e.preventDefault();
+        navigateToCard(Math.round(currentP) - 1);
+      }
+    }
+  });
+
+  setupScrollTrigger();
+  renderRoundMotion(0);
+
+  // Resize recalculation
+  window.addEventListener('resize', () => {
+    setupScrollTrigger();
+    renderRoundMotion(currentP);
+  }, { passive: true });
 }
 
 /* ==========================================================================
