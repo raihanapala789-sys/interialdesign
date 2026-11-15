@@ -1487,7 +1487,7 @@
               <span class="eyebrow">Material Provenance</span>
               <h3 class="heading-section section-head__title" style="margin-bottom: 0.75rem;">Materials Matter.</h3>
               <p class="lead">
-                Raw geological stone, slow-grown European timber, and living brass that patinate gracefully with decades of touch.
+                Translucent backlit quartzite, raw geological stone, slow-grown European timber, and living brass calibrated to ambient 2400K twilight illumination.
               </p>
             </div>
             <a href="#contact" class="btn btn--outlined magnetic" data-enquire-subject="Design Consultation" data-cursor="pointer">
@@ -1496,27 +1496,46 @@
           </div>
 
           <div class="swatch-explorer">
-            <div class="swatch-stage corner-frame" id="swatchStage">
-              <div class="swatch-stage__tex tex-wood" id="swatchStageTex"></div>
+            <div class="swatch-stage corner-frame has-luminous-glow" id="swatchStage">
+              <div class="swatch-stage__glow" aria-hidden="true"></div>
+              <div class="swatch-stage__tex tex-quartzite" id="swatchStageTex"></div>
               <div class="swatch-stage__scrim" aria-hidden="true"></div>
               <div class="swatch-stage__info">
-                <span class="eyebrow eyebrow--plain" id="swatchIndex">01 / Timber</span>
-                <h4 class="heading-sub" id="swatchTitle" style="margin-top: 0.45rem;">European Smoked Walnut</h4>
+                <span class="eyebrow eyebrow--plain" id="swatchIndex"><span class="luminous-badge">&bull; Luminous</span> 01 / Luminescent Mineral</span>
+                <h4 class="heading-sub" id="swatchTitle" style="margin-top: 0.45rem;">Backlit Crystalline Quartzite &amp; Honey Onyx</h4>
                 <div class="swatch-stage__meta">
                   <div>
                     <span class="project-spec__k">Surface Finish</span>
-                    <span class="project-spec__v" id="swatchFinish">Hand-Rubbed Raw Beeswax Oil</span>
+                    <span class="project-spec__v" id="swatchFinish">Translucent Cleft with Integrated 2400K Ambient Glow</span>
                   </div>
                   <div>
                     <span class="project-spec__k">Where Used</span>
-                    <span class="project-spec__v" id="swatchUsage">Fluted Library Walls &amp; Dining Monoliths</span>
+                    <span class="project-spec__v" id="swatchUsage">Lumina Waterfall Island, Floating Hearths &amp; Powder Rooms</span>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="swatch-selector" id="swatchSelector" role="tablist" aria-label="Explore material swatches">
-              <button class="swatch-btn is-active" type="button" role="tab" aria-selected="true" data-swatch-key="wood">
+              <button class="swatch-btn is-active swatch-btn--glow" type="button" role="tab" aria-selected="true" data-swatch-key="quartzite">
+                <span class="swatch-btn__chip tex-quartzite" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Backlit Quartzite</span>
+                  <span class="swatch-btn__finish">Crystalline Glow &amp; Warm Amber 2400K</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn swatch-btn--glow" type="button" role="tab" aria-selected="false" data-swatch-key="alabaster">
+                <span class="swatch-btn__chip tex-alabaster" aria-hidden="true"></span>
+                <span>
+                  <span class="swatch-btn__name">Luminous Alabaster</span>
+                  <span class="swatch-btn__finish">Translucent Halo Stone &amp; Brass</span>
+                </span>
+                <span class="text-champagne">&rarr;</span>
+              </button>
+
+              <button class="swatch-btn" type="button" role="tab" aria-selected="false" data-swatch-key="wood">
                 <span class="swatch-btn__chip tex-wood" aria-hidden="true"></span>
                 <span>
                   <span class="swatch-btn__name">Natural Wood</span>

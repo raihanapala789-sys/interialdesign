@@ -185,10 +185,12 @@ const MATERIAL_CATALOG = {
   ],
   Lighting: [
     { name: 'Aurelia Halo Pendant', spec: 'Brushed Champagne Brass • 2400K LED', tex: 'tex-metal' },
+    { name: 'Luminous Alabaster Disc', spec: 'Spanish Veined Alabaster • Amber Halo Glow', tex: 'tex-alabaster' },
     { name: 'Nocturne Drop Sconce', spec: 'Turned Alabaster & Aged Bronze', tex: 'tex-stone' },
     { name: 'Fluted Cove Channel', spec: 'Recessed Walnut Architectural Trim', tex: 'tex-wood' }
   ],
   Surfaces: [
+    { name: 'Backlit Translucent Quartzite', spec: 'Illuminated Crystalline Slab • 2400K Core', tex: 'tex-quartzite' },
     { name: 'Fluted Smoked Walnut', spec: 'Quarter-Sawn Matte Waxed Acoustic Rib', tex: 'tex-wood' },
     { name: 'Honed Nero Marquina', spec: 'Spanish Dark Marble • Leather Finish', tex: 'tex-stone' },
     { name: 'Satin Champagne Plate', spec: 'Unlacquered Architectural Brass Sheet', tex: 'tex-metal' }
@@ -1743,52 +1745,75 @@ function initServicesInteraction() {
    Material Swatch Explorer (Hover / Tap / Focus Macro Preview)
    ========================================================================== */
 const SWATCH_EXPLORER_DATA = {
+  quartzite: {
+    index: '01 / Luminescent Mineral',
+    title: 'Backlit Crystalline Quartzite & Honey Onyx',
+    finish: 'Translucent Cleft with Integrated 2400K Ambient Glow',
+    usage: 'Lumina Waterfall Island, Floating Hearths & Powder Rooms',
+    tex: 'tex-quartzite',
+    glow: true
+  },
+  alabaster: {
+    index: '02 / Ambient Halo Stone',
+    title: 'Veined Spanish Alabaster & Halo Glass',
+    finish: 'Hand-Turned Translucent Stone with 2200K Evening Halo',
+    usage: 'Serein Halo Mirror, Sculptural Sconces & Recessed Niche Coves',
+    tex: 'tex-alabaster',
+    glow: true
+  },
   wood: {
-    index: '01 / Timber',
-    title: 'European Smoked Walnut',
-    finish: 'Hand-Rubbed Raw Beeswax Oil',
-    usage: 'Fluted Library Walls & Dining Monoliths',
-    tex: 'tex-wood'
+    index: '03 / Architectural Timber',
+    title: 'European Smoked Walnut & Teak',
+    finish: 'Hand-Rubbed Raw Beeswax Oil & Fine Fluting',
+    usage: 'Fluted Library Walls, Acoustic Ceilings & Dining Monoliths',
+    tex: 'tex-wood',
+    glow: false
   },
   stone: {
-    index: '02 / Geological Stone',
+    index: '04 / Geological Stone',
     title: 'Roman Travertine & Nero Marquina',
-    finish: 'Honed Open-Pore Matte Slate',
-    usage: 'Sculpted Basin Monoliths, Hearths & Floors',
-    tex: 'tex-stone'
+    finish: 'Honed Open-Pore Matte Slate with Subtle Underglow',
+    usage: 'Sculpted Basin Monoliths, Cleft Walls & Floors',
+    tex: 'tex-stone',
+    glow: false
   },
   metal: {
-    index: '03 / Architectural Metal',
+    index: '05 / Architectural Metal',
     title: 'Unlacquered Champagne Brass',
-    finish: 'Hand-Brushed Living Satin Patina',
+    finish: 'Hand-Brushed Living Satin Patina with Warm Light Glint',
     usage: 'Custom Halo Luminaires & Joinery Hardware',
-    tex: 'tex-metal'
+    tex: 'tex-metal',
+    glow: true
   },
   fabric: {
-    index: '04 / Woven Textile',
+    index: '06 / Woven Textile',
     title: 'Belgian Wool Bouclé & Raw Flax',
     finish: 'Tight-Loop Acoustic & Soil-Safe Weave',
-    usage: 'Curved Salon Seating & Sheer Drapery',
-    tex: 'tex-fabric'
+    usage: 'Curved Salon Seating & Sheer Twilight Drapery',
+    tex: 'tex-fabric',
+    glow: false
   },
   leather: {
-    index: '05 / Full-Grain Hide',
+    index: '07 / Full-Grain Hide',
     title: 'Cognac Vegetable-Tanned Saddle Leather',
     finish: 'Warm Aniline Balm Patina',
     usage: 'Lounge Armchairs, Headboards & Stitched Pulls',
-    tex: 'tex-leather'
+    tex: 'tex-leather',
+    glow: false
   },
   plaster: {
-    index: '06 / Wall Craft',
+    index: '08 / Wall Craft',
     title: 'Troweled Italian Mineral Lime',
-    finish: 'Breathable Matte Crushed Travertine',
+    finish: 'Breathable Matte Crushed Travertine with Grazing Light',
     usage: 'Evening Alcove Walls & Spa Vaults',
-    tex: 'tex-plaster'
+    tex: 'tex-plaster',
+    glow: false
   }
 };
 
 function initMaterialSwatchExplorer() {
   const selector = document.getElementById('swatchSelector');
+  const stageEl = document.getElementById('swatchStage');
   const stageTex = document.getElementById('swatchStageTex');
   const idxEl = document.getElementById('swatchIndex');
   const titleEl = document.getElementById('swatchTitle');
@@ -1798,7 +1823,7 @@ function initMaterialSwatchExplorer() {
   if (!selector || !stageTex) return;
 
   const buttons = Array.from(selector.querySelectorAll('[data-swatch-key]'));
-  let activeKey = 'wood';
+  let activeKey = 'quartzite';
 
   const applySwatch = (key) => {
     if (!SWATCH_EXPLORER_DATA[key] || key === activeKey) return;
@@ -1811,10 +1836,20 @@ function initMaterialSwatchExplorer() {
       btn.setAttribute('aria-selected', String(isMatch));
     });
 
+    if (stageEl) {
+      stageEl.classList.toggle('has-luminous-glow', Boolean(item.glow));
+    }
+
     stageTex.style.opacity = '0.35';
     requestAnimationFrame(() => {
       stageTex.className = `swatch-stage__tex ${item.tex}`;
-      if (idxEl) idxEl.textContent = item.index;
+      if (idxEl) {
+        if (item.glow) {
+          idxEl.innerHTML = `<span class="luminous-badge">&bull; Luminous</span> ${item.index}`;
+        } else {
+          idxEl.textContent = item.index;
+        }
+      }
       if (titleEl) titleEl.textContent = item.title;
       if (finishEl) finishEl.textContent = item.finish;
       if (usageEl) usageEl.textContent = item.usage;

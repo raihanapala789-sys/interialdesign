@@ -1672,6 +1672,63 @@ ol {
 /* ==========================================================================
    CSS Procedural Luxury Textures (Zero Photos Required)
    ========================================================================== */
+.tex-quartzite {
+  background-color: #24160d;
+  background-image:
+    /* Crystalline surface fracture glints */
+    linear-gradient(135deg, transparent 42%, rgba(255, 252, 244, 0.72) 43%, rgba(232, 175, 100, 0.9) 43.8%, transparent 45%),
+    linear-gradient(54deg, transparent 58%, rgba(255, 246, 224, 0.55) 59.2%, rgba(216, 150, 68, 0.8) 60.2%, transparent 61.8%),
+    linear-gradient(170deg, transparent 31%, rgba(255, 248, 230, 0.45) 32%, transparent 33.5%),
+    /* Translucent micro-crystalline refractions */
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 245, 225, 0.06) 0px,
+      rgba(255, 245, 225, 0.06) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    /* High-intensity internal amber backlighting pools */
+    radial-gradient(ellipse at 46% 44%, rgba(255, 242, 210, 0.98) 0%, rgba(248, 200, 122, 0.9) 24%, rgba(218, 146, 62, 0.62) 52%, transparent 76%),
+    radial-gradient(ellipse at 82% 72%, rgba(255, 230, 180, 0.88) 0%, rgba(232, 160, 78, 0.7) 30%, transparent 68%),
+    radial-gradient(ellipse at 16% 28%, rgba(248, 212, 148, 0.7) 0%, rgba(214, 140, 58, 0.48) 38%, transparent 66%),
+    /* Deep translucent honey-quartz matrix */
+    linear-gradient(145deg, #7e4d22 0%, #422511 40%, #1e1107 82%, #120904 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 12px 12px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  animation: quartziteRadiance 6.5s ease-in-out infinite alternate;
+}
+
+@keyframes quartziteRadiance {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 22px rgba(232, 175, 100, 0.32));
+  }
+  100% {
+    filter: brightness(1.1) drop-shadow(0 0 48px rgba(232, 175, 100, 0.65));
+  }
+}
+
+.tex-alabaster {
+  background-color: #2b1e15;
+  background-image:
+    /* Delicate organic cloud-vein fractures */
+    linear-gradient(124deg, transparent 37%, rgba(255, 250, 238, 0.5) 38.5%, rgba(216, 185, 143, 0.6) 39.5%, transparent 41%),
+    linear-gradient(64deg, transparent 60%, rgba(255, 245, 225, 0.42) 61.2%, transparent 62.5%),
+    /* 2200K Perimeter Halo light dispersion */
+    radial-gradient(circle at 50% 50%, rgba(255, 248, 240, 0.96) 0%, rgba(244, 214, 156, 0.8) 22%, rgba(214, 164, 96, 0.5) 48%, transparent 78%),
+    radial-gradient(ellipse at 75% 25%, rgba(255, 234, 188, 0.58) 0%, transparent 58%),
+    /* Translucent milky honey alabaster depth */
+    linear-gradient(155deg, #66462a 0%, #342214 50%, #180e08 100%);
+  animation: alabasterHalo 7.5s ease-in-out infinite alternate;
+}
+
+@keyframes alabasterHalo {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 20px rgba(216, 185, 143, 0.28));
+  }
+  100% {
+    filter: brightness(1.08) drop-shadow(0 0 40px rgba(216, 185, 143, 0.55));
+  }
+}
+
 .tex-wood {
   background-color: #2c1b11;
   background-image:
@@ -2775,6 +2832,19 @@ ol {
 .piece-card__swatch {
   height: 78px;
   border: 1px solid var(--hairline);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.piece-card__swatch.tex-quartzite,
+.piece-card__swatch.tex-alabaster {
+  box-shadow: 0 0 16px rgba(232, 175, 100, 0.28);
+  border-color: rgba(232, 175, 100, 0.45);
+}
+
+.piece-card:hover .piece-card__swatch.tex-quartzite,
+.piece-card:hover .piece-card__swatch.tex-alabaster {
+  box-shadow: 0 0 24px rgba(232, 175, 100, 0.5);
+  border-color: #f7d59d;
 }
 
 .piece-card__meta {
@@ -2796,12 +2866,34 @@ ol {
 
 /* Materials Matter: Interactive Material Swatch Explorer */
 .materials-matter {
+  position: relative;
   margin-bottom: 5rem;
-  padding-top: 4rem;
+  padding-top: 4.5rem;
   border-top: 1px solid var(--hairline);
 }
 
+/* Atmospheric warm luminous aura melting into espresso background */
+.materials-matter::before {
+  content: '';
+  position: absolute;
+  top: 8%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(
+    ellipse at 42% 40%,
+    rgba(232, 175, 100, 0.075) 0%,
+    rgba(200, 169, 106, 0.04) 40%,
+    transparent 72%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .materials-matter__header {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -2811,6 +2903,8 @@ ol {
 }
 
 .swatch-explorer {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: clamp(2rem, 4.5vw, 4rem);
@@ -2819,19 +2913,51 @@ ol {
 
 .swatch-stage {
   position: relative;
-  min-height: 390px;
+  min-height: 420px;
   overflow: hidden;
   border: 1px solid var(--hairline);
   display: flex;
   align-items: flex-end;
   padding: clamp(1.75rem, 3.5vw, 2.75rem);
   background-color: var(--bg-base);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px -10px rgba(200, 169, 106, 0.12);
+  transition: border-color 0.6s var(--ease-editorial), box-shadow 0.6s var(--ease-editorial);
+}
+
+.swatch-stage.has-luminous-glow {
+  border-color: rgba(232, 175, 100, 0.65);
+  box-shadow:
+    0 24px 65px -12px rgba(0, 0, 0, 0.9),
+    0 0 55px -6px rgba(232, 175, 100, 0.35),
+    0 0 100px -15px rgba(200, 169, 106, 0.22),
+    inset 0 0 65px rgba(232, 175, 100, 0.16);
+}
+
+.swatch-stage__glow {
+  position: absolute;
+  inset: -25px;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(232, 175, 100, 0.24) 0%,
+    rgba(200, 169, 106, 0.12) 42%,
+    transparent 72%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  z-index: 0;
+}
+
+.swatch-stage.has-luminous-glow .swatch-stage__glow {
+  opacity: 1;
 }
 
 .swatch-stage__tex {
   position: absolute;
   inset: 0;
   transition: opacity 0.55s var(--ease-editorial), transform 1.2s var(--ease-editorial);
+  z-index: 1;
 }
 
 .swatch-stage:hover .swatch-stage__tex {
@@ -2841,13 +2967,14 @@ ol {
 .swatch-stage__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14, 13, 12, 0.14) 0%, rgba(14, 13, 12, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(14, 13, 12, 0.08) 0%, rgba(14, 13, 12, 0.45) 45%, rgba(14, 13, 12, 0.9) 100%);
   pointer-events: none;
+  z-index: 2;
 }
 
 .swatch-stage__info {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   max-width: 52ch;
 }
 
@@ -2870,10 +2997,10 @@ ol {
 .swatch-btn {
   width: 100%;
   display: grid;
-  grid-template-columns: 52px 1fr auto;
+  grid-template-columns: 54px 1fr auto;
   align-items: center;
   gap: 1.25rem;
-  padding: 1.05rem 0.5rem;
+  padding: 0.95rem 0.5rem;
   border-bottom: 1px solid var(--hairline);
   text-align: left;
   cursor: pointer;
@@ -2883,14 +3010,31 @@ ol {
 .swatch-btn:hover,
 .swatch-btn.is-active {
   border-bottom-color: var(--champagne);
-  background-color: rgba(200, 169, 106, 0.05);
+  background-color: rgba(200, 169, 106, 0.06);
+}
+
+.swatch-btn--glow .swatch-btn__chip {
+  box-shadow: 0 0 12px rgba(232, 175, 100, 0.35);
+  border-color: rgba(232, 175, 100, 0.5);
+}
+
+.swatch-btn--glow:hover .swatch-btn__chip,
+.swatch-btn--glow.is-active .swatch-btn__chip {
+  box-shadow: 0 0 20px rgba(232, 175, 100, 0.7);
+  border-color: #f7d59d;
+}
+
+.swatch-btn--glow.is-active {
+  background-color: rgba(232, 175, 100, 0.09);
+  border-bottom-color: #e8af64;
 }
 
 .swatch-btn__chip {
-  width: 52px;
+  width: 54px;
   height: 38px;
   border: 1px solid var(--hairline-strong);
-  transition: transform 0.45s var(--ease-editorial);
+  border-radius: var(--radius-card);
+  transition: transform 0.45s var(--ease-editorial), box-shadow 0.45s ease, border-color 0.45s ease;
 }
 
 .swatch-btn:hover .swatch-btn__chip,
@@ -2900,7 +3044,7 @@ ol {
 
 .swatch-btn__name {
   font-family: var(--font-serif);
-  font-size: 1.32rem;
+  font-size: 1.28rem;
   font-weight: 300;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2912,6 +3056,11 @@ ol {
   color: var(--champagne);
 }
 
+.swatch-btn--glow.is-active .swatch-btn__name {
+  color: #f8dfa5;
+  text-shadow: 0 0 14px rgba(232, 175, 100, 0.4);
+}
+
 .swatch-btn__finish {
   display: block;
   font-size: 0.75rem;
@@ -2919,6 +3068,33 @@ ol {
   text-transform: uppercase;
   color: var(--taupe);
   margin-top: 0.2rem;
+}
+
+.luminous-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fce5b8;
+  background: rgba(232, 175, 100, 0.16);
+  border: 1px solid rgba(232, 175, 100, 0.45);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 12px rgba(232, 175, 100, 0.22);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.luminous-badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e8af64;
+  box-shadow: 0 0 8px #fce5b8;
+  animation: pulseRing 2s ease-out infinite;
 }
 
 /* Inside the Studio 4 Icon Cards (Hairline Grid) */
