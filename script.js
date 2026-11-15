@@ -91,7 +91,10 @@ const IMAGE_SLOTS = {
   // 12. About founder editorial portrait
   aboutFounder: 'assets/images/12-about-founder.jpg',
   // 13. Featured piece spotlight (reused with distinct focal crops & lighting tints across 01-04)
-  featuredPiece: 'assets/images/13-featured-piece.jpg'
+  featuredPiece: 'assets/images/13-featured-piece.jpg',
+  // 15-16. Bespoke signature pieces
+  pieceStoneMonolith: 'assets/images/15-piece-stone-monolith.jpg',
+  pieceCurvedSalon: 'assets/images/16-piece-curved-salon.jpg'
 };
 
 /**
@@ -117,39 +120,39 @@ const SPOTLIGHT_EDITIONS = [
     ]
   },
   {
-    id: 'sovereign-travertine-suite',
-    imageSlot: 'spaceLiving',
-    category: 'Living Atelier • Sculpted Form',
-    name: 'SOVEREIGN TRAVERTINE & SADDLE SUITE',
-    desc: 'Honed Roman travertine monolith drum paired with a hand-stitched cognac aniline saddle armchair grounded in warm espresso joinery.',
-    material: 'Roman Travertine & Hide',
-    dimensions: 'Ø 115 × 34 cm / Pair',
-    cropPosition: '34% 72%',
-    cropScale: 1.62,
-    filter: 'brightness(0.94) sepia(0.06) contrast(1.06)',
+    id: 'sovereign-stone-monolith',
+    imageSlot: 'pieceStoneMonolith',
+    category: 'Living Atelier • Cleft Stone & Light',
+    name: 'SOVEREIGN CLEFT STONE TABLE',
+    desc: 'Quarried monolithic stone coffee table with recessed perimeter underglow, set against a dramatic hand-cleft travertine wall and warm coastal dusk light.',
+    material: 'Raw Cleft Travertine & 2400K Underglow',
+    dimensions: '160 × 95 × 36 cm',
+    cropPosition: 'center 60%',
+    cropScale: 1.0,
+    filter: 'none',
     swatches: [
-      { label: 'Roman Travertine', hex: '#C9B59C' },
-      { label: 'Cognac Saddle', hex: '#8A5433' },
-      { label: 'Smoked Walnut', hex: '#4A3526' },
-      { label: 'Charred Oak', hex: '#1C1410' }
+      { label: 'Cleft Travertine', hex: '#D2BEA4' },
+      { label: 'Warm Amber 2400K', hex: '#E5A962' },
+      { label: 'Oat Bouclé', hex: '#DDD2C3' },
+      { label: 'Sunset Terracotta', hex: '#A3684B' }
     ]
   },
   {
-    id: 'aurelia-halo-pendant',
-    imageSlot: 'spaceDining',
-    category: 'Dining Atelier • Luminaire',
-    name: 'AURELIA CHAMPAGNE HALO PENDANT',
-    desc: 'Razor-thin hand-brushed champagne brass ring suspended on micro-tension cables, bathing solid smoked walnut in warm 2400K glow.',
-    material: 'Brushed Brass • 2400K',
-    dimensions: 'Ø 180 × 5.5 cm',
-    cropPosition: '50% 38%',
-    cropScale: 1.48,
-    filter: 'brightness(0.92) sepia(0.08) contrast(1.07)',
+    id: 'aura-curved-salon',
+    imageSlot: 'pieceCurvedSalon',
+    category: 'Salon Atelier • Organic Seating & Luminaires',
+    name: 'AURA CURVED CONVERSATION SUITE',
+    desc: 'Gently radiused low-profile conversation sofa in sand-washed linen, paired with channel-pleated ottoman poufs, low timber disc table, and artisan woven globe pendants.',
+    material: 'Sand Washed Linen & Woven Pendants',
+    dimensions: '380 × 320 × 68 cm',
+    cropPosition: 'center 48%',
+    cropScale: 1.0,
+    filter: 'none',
     swatches: [
-      { label: 'Champagne Brass', hex: '#D8B98F' },
-      { label: 'Satin Warm Sand', hex: '#B89A76' },
-      { label: 'Aged Bronze', hex: '#524030' },
-      { label: 'Espresso Matte', hex: '#120D0A' }
+      { label: 'Sand Washed Linen', hex: '#D6C8B5' },
+      { label: 'Woven Rattan', hex: '#C29F6C' },
+      { label: 'Natural White Oak', hex: '#B89B7A' },
+      { label: 'Warm Cream', hex: '#EFE8DC' }
     ]
   },
   {
@@ -1451,49 +1454,110 @@ function initBeforeAfterSliders() {
 }
 
 function initBeforeAfterScrollScrub(prefersReducedMotion) {
-  if (prefersReducedMotion) return;
+  if (prefersReducedMotion || typeof ScrollTrigger === 'undefined') return;
+
   const cfg = VELORE_CONFIG.portfolioSlider;
   document.querySelectorAll('[data-ba-slider]').forEach((slider) => {
+    if (!slider._glideBaPct) return;
     slider._setBaPctImmediate?.(cfg.startPct);
+
+    const syncFromScroll = (progress) => {
+      if (slider._baState?.dragging) return;
+      const targetPct = cfg.startPct + (cfg.endPct - cfg.startPct) * progress;
+      slider._glideBaPct(targetPct);
+    };
+
+    ScrollTrigger.create({
+      trigger: slider,
+      start: cfg.start,
+      end: cfg.end,
+      onUpdate: (self) => syncFromScroll(self.progress),
+      onLeave: () => {
+        if (!slider._baState?.dragging) slider._glideBaPct(cfg.endPct);
+      },
+      onLeaveBack: () => {
+        if (!slider._baState?.dragging) slider._glideBaPct(cfg.startPct);
+      }
+    });
   });
 }
 
 /* ==========================================================================
-   Featured Portfolio Showcase (3-Card Screen Grid + Interactive Sweeps)
+   Horizontal Scroll Portfolio (Drag, Arrows, Index Counter & Progress Bar)
    ========================================================================== */
 function initHorizontalPortfolio() {
-  const list = document.getElementById('portfolioList');
-  if (!list) return;
+  const viewport = document.getElementById('portfolioViewport');
+  const indexEl = document.getElementById('portfolioIndex');
+  const fillEl = document.getElementById('portfolioProgressFill');
+  const prevBtn = document.getElementById('portfolioPrevBtn');
+  const nextBtn = document.getElementById('portfolioNextBtn');
+  if (!viewport) return;
 
-  // Clear any leftover GSAP transforms
-  if (typeof gsap !== 'undefined') {
-    gsap.set(list, { clearProps: 'x,transform' });
-  }
+  const getVisibleRows = () =>
+    Array.from(viewport.querySelectorAll('.project-row:not(.is-hidden)'));
 
-  // Set up each Before/After slider on the 3 cards
-  const sliders = list.querySelectorAll('[data-ba-slider]');
-  sliders.forEach((slider) => {
-    // Set 50% split immediately so both Before and After are prominently displayed
-    slider._setBaPctImmediate?.(50);
+  const syncProgress = () => {
+    const rows = getVisibleRows();
+    const total = rows.length || 1;
+    let activeIdx = 0;
 
-    // Subtle interactive preview glide on mouse hover
-    slider.addEventListener('mouseenter', () => {
-      if (!slider._baState?.dragging && slider._glideBaPct) {
-        slider._glideBaPct(28); // Reveal luxury finished interior
-      }
-    });
+    if (total > 1 && rows[1]) {
+      const stepWidth = Math.max(1, rows[1].offsetLeft - rows[0].offsetLeft);
+      activeIdx = Math.min(total - 1, Math.max(0, Math.round(viewport.scrollLeft / stepWidth)));
+    }
 
-    slider.addEventListener('mouseleave', () => {
-      if (!slider._baState?.dragging && slider._glideBaPct) {
-        slider._glideBaPct(50); // Restore balanced split
-      }
-    });
+    const ratio = total <= 1 ? 1 : (activeIdx + 1) / total;
+    if (indexEl) {
+      indexEl.textContent = `${String(activeIdx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+    }
+    if (fillEl) {
+      fillEl.style.transform = `scaleX(${ratio})`;
+    }
+  };
+
+  const scrollBySlide = (direction) => {
+    const rows = getVisibleRows();
+    if (!rows.length) return;
+    const step = rows[1] ? rows[1].offsetLeft - rows[0].offsetLeft : rows[0].offsetWidth;
+    viewport.scrollBy({ left: direction * step, behavior: 'smooth' });
+  };
+
+  prevBtn?.addEventListener('click', () => scrollBySlide(-1));
+  nextBtn?.addEventListener('click', () => scrollBySlide(1));
+
+  // Mouse drag-to-pan outside the Before/After sliders
+  let isDown = false;
+  let startX = 0;
+  let startScroll = 0;
+
+  viewport.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('[data-ba-slider], button, a')) return;
+    isDown = true;
+    startX = e.clientX;
+    startScroll = viewport.scrollLeft;
+    viewport.classList.add('is-dragging');
+    viewport.setPointerCapture?.(e.pointerId);
   });
 
-  // Re-refresh ScrollTrigger when typologies are filtered
+  viewport.addEventListener('pointermove', (e) => {
+    if (!isDown) return;
+    viewport.scrollLeft = startScroll - (e.clientX - startX);
+  });
+
+  const endDrag = () => {
+    isDown = false;
+    viewport.classList.remove('is-dragging');
+  };
+
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+  viewport.addEventListener('scroll', syncProgress, { passive: true });
   document.addEventListener('velore:portfolioFiltered', () => {
-    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    viewport.scrollTo({ left: 0, behavior: 'smooth' });
+    syncProgress();
   });
+
+  syncProgress();
 }
 
 /* ==========================================================================
