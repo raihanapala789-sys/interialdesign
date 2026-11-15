@@ -90,11 +90,13 @@ const IMAGE_SLOTS = {
   project3After: 'assets/images/11-project3-after.jpg',
   // 12. About founder editorial portrait
   aboutFounder: 'assets/images/12-about-founder.jpg',
-  // 13. Featured piece spotlight (reused with distinct focal crops & lighting tints across 01-04)
+  // 13. Featured piece spotlight (legacy fallback)
   featuredPiece: 'assets/images/13-featured-piece.jpg',
-  // 15-16. Bespoke signature pieces
+  // 15-18. Bespoke signature pieces (Pieces You Will Love)
   pieceStoneMonolith: 'assets/images/15-piece-stone-monolith.jpg',
-  pieceCurvedSalon: 'assets/images/16-piece-curved-salon.jpg'
+  pieceCurvedSalon: 'assets/images/16-piece-curved-salon.jpg',
+  pieceQuartziteIsland: 'assets/images/17-piece-quartzite-island.jpg',
+  pieceChaiseSanctuary: 'assets/images/18-piece-chaise-sanctuary.jpg'
 };
 
 /**
@@ -102,21 +104,21 @@ const IMAGE_SLOTS = {
  */
 const SPOTLIGHT_EDITIONS = [
   {
-    id: 'velore-arc-chair',
-    imageSlot: 'featuredPiece',
-    category: 'Signature Edition',
-    name: 'VELORE ARC LOUNGE CHAIR',
-    desc: 'A quiet study in posture and volume — enveloping curved backrest upholstered in Belgian heavy-loop bouclé over a concealed bronze swivel plinth.',
-    material: 'Heavy Bouclé & Bronze',
-    dimensions: '78 × 76 × 72 cm',
-    cropPosition: '36% 65%',
+    id: 'lumina-quartzite-island',
+    imageSlot: 'pieceQuartziteIsland',
+    category: 'Kitchen Atelier • Culinary Monolith',
+    name: 'LUMINA BACKLIT QUARTZITE ISLAND',
+    desc: 'Translucent crystalline quartzite waterfall kitchen island illuminated from within, paired with unlacquered champagne brass globe pendants and bespoke upholstered bar seating.',
+    material: 'Crystalline Quartzite & Champagne Brass',
+    dimensions: '340 × 120 × 92 cm',
+    cropPosition: 'center 50%',
     cropScale: 1.0,
-    filter: 'brightness(0.96) contrast(1.04)',
+    filter: 'none',
     swatches: [
-      { label: 'Warm Oat', hex: '#E2D5C3' },
-      { label: 'Muted Taupe', hex: '#A89886' },
-      { label: 'Walnut Suede', hex: '#4A3526' },
-      { label: 'Espresso Wool', hex: '#2A1E17' }
+      { label: 'Crystalline Quartzite', hex: '#EFE8DC' },
+      { label: 'Warm Backlight 2400K', hex: '#E8AF64' },
+      { label: 'Champagne Brass', hex: '#D8B98F' },
+      { label: 'Espresso Joinery', hex: '#241B16' }
     ]
   },
   {
@@ -156,21 +158,21 @@ const SPOTLIGHT_EDITIONS = [
     ]
   },
   {
-    id: 'komorebi-walnut-suite',
-    imageSlot: 'spaceBedroom',
-    category: 'Atelier Joinery • Millwork',
-    name: 'KOMOREBI FLUTED WALNUT SUITE',
-    desc: 'Precision-milled vertical fluting in smoked European walnut with shadow-gap joinery, honed stone top, and hand-finished bronze pulls.',
-    material: 'Smoked Walnut & Honed Stone',
-    dimensions: '240 × 52 × 74 cm',
-    cropPosition: '45% 65%',
-    cropScale: 1.42,
-    filter: 'brightness(0.95) contrast(1.05)',
+    id: 'serein-chaise-sanctuary',
+    imageSlot: 'pieceChaiseSanctuary',
+    category: 'Bedroom Atelier • Sanctuary Suite',
+    name: 'SEREIN BOUCLÉ CHAISE & HALO MIRROR',
+    desc: 'Organic S-curved bouclé daybed lounge anchored by a large circular backlit halo mirror, vertical globe sconces, solid timber disc table, and textural wool rug.',
+    material: 'Textured Bouclé, Backlit Mirror & Walnut',
+    dimensions: '190 × 85 × 74 cm / Suite',
+    cropPosition: 'center 40%',
+    cropScale: 1.0,
+    filter: 'none',
     swatches: [
-      { label: 'Smoked Walnut', hex: '#4A3526' },
-      { label: 'Honed Calacatta', hex: '#E6E0D8' },
-      { label: 'Brushed Bronze', hex: '#6E5638' },
-      { label: 'Belgian Linen', hex: '#D4C6B2' }
+      { label: 'Oat Bouclé', hex: '#E5DACB' },
+      { label: 'Backlit Halo 2400K', hex: '#E7B16A' },
+      { label: 'Solid Walnut', hex: '#583F2C' },
+      { label: 'Muted Terracotta', hex: '#87513B' }
     ]
   }
 ];

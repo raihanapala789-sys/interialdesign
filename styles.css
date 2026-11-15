@@ -2624,9 +2624,9 @@ ol {
 }
 
 .luxury-piece-card__img--arc {
-  object-position: 36% 65%;
-  --card-scale: 1.03;
-  filter: brightness(0.95) contrast(1.04);
+  object-position: center 52%;
+  --card-scale: 1;
+  filter: brightness(0.98) contrast(1.02);
 }
 
 .luxury-piece-card__img--travertine {
@@ -2642,9 +2642,9 @@ ol {
 }
 
 .luxury-piece-card__img--komorebi {
-  object-position: 45% 65%;
-  --card-scale: 1.25;
-  filter: brightness(0.94) contrast(1.05);
+  object-position: center 42%;
+  --card-scale: 1;
+  filter: brightness(0.98) contrast(1.02);
 }
 
 .luxury-piece-card:hover .luxury-piece-card__img {
