@@ -1985,7 +1985,11 @@ ol {
 
 .project-row {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 4vw, 3.75rem);
   align-items: center;
   padding: clamp(1.5rem, 3vw, 2.75rem);
   background-color: var(--bg-surface);
@@ -1995,45 +1999,12 @@ ol {
   transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial);
 }
 
-/* Position Order: 1st on Right, 2nd on Left, 3rd on Right */
-.project-row:nth-child(odd) {
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
-  gap: clamp(2rem, 4vw, 3.75rem);
-}
-
-.project-row:nth-child(odd) .ba-slider {
-  order: 2;
-}
-
-.project-row:nth-child(odd) .project-details {
+.project-row .ba-slider {
   order: 1;
 }
 
-.project-row:nth-child(even) {
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
-  gap: clamp(2rem, 4vw, 3.75rem);
-}
-
-.project-row:nth-child(even) .ba-slider {
-  order: 1;
-}
-
-.project-row:nth-child(even) .project-details {
+.project-row .project-details {
   order: 2;
-}
-
-@media (min-width: 1100px) {
-  .project-row:nth-child(odd) {
-    margin-left: auto;
-    margin-right: 0;
-    max-width: min(94%, 1140px);
-  }
-
-  .project-row:nth-child(even) {
-    margin-left: 0;
-    margin-right: auto;
-    max-width: min(94%, 1140px);
-  }
 }
 
 .project-row:hover {
@@ -3757,26 +3728,11 @@ ol {
     min-height: auto;
   }
 
-  .project-row,
-  .project-row:nth-child(odd),
-  .project-row:nth-child(even) {
-    grid-template-columns: 1fr !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+  .project-row {
+    grid-template-columns: 1fr;
     width: 100%;
     gap: 1.5rem;
     padding: 1.5rem;
-  }
-
-  .project-row:nth-child(odd) .ba-slider,
-  .project-row:nth-child(even) .ba-slider {
-    order: 1 !important;
-  }
-
-  .project-row:nth-child(odd) .project-details,
-  .project-row:nth-child(even) .project-details {
-    order: 2 !important;
   }
 
   .process-grid {
