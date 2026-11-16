@@ -910,6 +910,13 @@ ol {
 .hero-full__caption-card {
   max-width: 880px;
   pointer-events: auto;
+  margin-left: clamp(2rem, 5vw, 5.5rem);
+}
+
+@media (max-width: 640px) {
+  .hero-full__caption-card {
+    margin-left: 0;
+  }
 }
 
 .hero-full__heading {
