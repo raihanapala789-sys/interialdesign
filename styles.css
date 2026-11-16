@@ -922,13 +922,16 @@ ol {
 .hero-full__heading {
   margin-top: 1rem;
   margin-bottom: 2rem;
-  font-size: clamp(2.8rem, 6.8vw, 5.8rem);
-  font-weight: 300;
-  line-height: 1.05;
+  font-family: 'Bodoni Moda', 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 96;
+  font-size: clamp(2.75rem, 6.4vw, 5.6rem);
+  font-weight: 700;
+  line-height: 1.06;
   letter-spacing: 0.04em;
   color: var(--ivory);
   text-transform: uppercase;
-  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.75);
 }
 
 .hero-full__heading .line {
