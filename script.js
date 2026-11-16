@@ -1527,6 +1527,13 @@ function initPortfolioFiltering() {
         row.classList.toggle('is-hidden', !match);
       });
 
+      const visibleRows = allRows.filter((r) => !r.classList.contains('is-hidden'));
+      visibleRows.forEach((row, idx) => {
+        const isRight = idx % 2 === 0;
+        row.classList.toggle('project-row--right', isRight);
+        row.classList.toggle('project-row--left', !isRight);
+      });
+
       if (window.ScrollTrigger) {
         ScrollTrigger.refresh();
       }

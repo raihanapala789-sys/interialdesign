@@ -1979,31 +1979,59 @@ ol {
   flex-direction: column;
   gap: clamp(2.5rem, 5vw, 4.5rem);
   width: 100%;
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
 }
 
 .project-row {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
-  gap: clamp(2rem, 4vw, 3.75rem);
   align-items: center;
   padding: clamp(1.5rem, 3vw, 2.75rem);
   background-color: var(--bg-surface);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-card);
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75);
-  transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial);
+  transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial), transform 0.4s var(--ease-editorial);
 }
 
-.project-row .ba-slider {
+/* 1st & 3rd Project: WORK ON RIGHT, details on left, card shifted right */
+.project-row--right,
+.project-row:nth-child(odd) {
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.22fr);
+  gap: clamp(2rem, 4vw, 3.75rem);
+  margin-left: auto;
+  margin-right: 0;
+  max-width: min(92%, 1160px);
+}
+
+.project-row--right .ba-slider,
+.project-row:nth-child(odd) .ba-slider {
+  order: 2;
+}
+
+.project-row--right .project-details,
+.project-row:nth-child(odd) .project-details {
   order: 1;
 }
 
-.project-row .project-details {
+/* 2nd Project: WORK ON LEFT, details on right, card shifted left */
+.project-row--left,
+.project-row:nth-child(even) {
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.88fr);
+  gap: clamp(2rem, 4vw, 3.75rem);
+  margin-left: 0;
+  margin-right: auto;
+  max-width: min(92%, 1160px);
+}
+
+.project-row--left .ba-slider,
+.project-row:nth-child(even) .ba-slider {
+  order: 1;
+}
+
+.project-row--left .project-details,
+.project-row:nth-child(even) .project-details {
   order: 2;
 }
 
@@ -3717,7 +3745,6 @@ ol {
     border-right: none;
   }
 
-  .project-row,
   .about-grid,
   .spotlight-card,
   .swatch-explorer,
@@ -3727,13 +3754,6 @@ ol {
 
   .portfolio-list {
     min-height: auto;
-  }
-
-  .project-row {
-    grid-template-columns: 1fr;
-    width: 100%;
-    gap: 1.5rem;
-    padding: 1.5rem;
   }
 
   .process-grid {
@@ -3760,6 +3780,31 @@ ol {
   .process-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .project-row,
+  .project-row--right,
+  .project-row--left,
+  .project-row:nth-child(odd),
+  .project-row:nth-child(even) {
+    grid-template-columns: 1fr !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .project-row--right .ba-slider,
+  .project-row:nth-child(odd) .ba-slider {
+    order: 1 !important;
+  }
+
+  .project-row--right .project-details,
+  .project-row:nth-child(odd) .project-details {
+    order: 2 !important;
   }
 }
 
