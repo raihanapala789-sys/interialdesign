@@ -422,6 +422,7 @@ function initPreloader(prefersReducedMotion, onComplete) {
     clearTimeout(guardTimer);
     document.removeEventListener('keydown', onEscapeSkip);
     preloader.classList.add('is-done');
+    preloader.style.display = 'none';
     document.body.classList.remove('is-locked');
     onComplete();
   };
@@ -488,7 +489,8 @@ function initPreloader(prefersReducedMotion, onComplete) {
     .to(preloader, {
       clipPath: 'inset(0% 0% 100% 0%)',
       duration: 0.72,
-      ease: VELORE_CONFIG.preloader.revealEase
+      ease: VELORE_CONFIG.preloader.revealEase,
+      onComplete: finishPreloader
     });
 }
 
@@ -1224,13 +1226,17 @@ function initNavigation() {
   const syncHeaderState = () => {
     const currentY = window.scrollY;
     const isMenuOpen = mobileMenu && mobileMenu.classList.contains('is-open');
+    const heroTrack = document.getElementById('heroScrollTrack');
+    const heroBottom = heroTrack ? (heroTrack.offsetTop + heroTrack.offsetHeight - window.innerHeight * 0.4) : 800;
+    const isPastHero = currentY >= heroBottom;
 
-    header.classList.toggle('is-scrolled', currentY > 40);
+    // Only apply frosted glass background once scrolled past the hero video
+    header.classList.toggle('is-scrolled', isPastHero);
 
     if (!isMenuOpen) {
-      if (currentY > 140 && currentY > lastScrollY + 6) {
+      if (isPastHero && currentY > lastScrollY + 6) {
         header.classList.add('is-hidden');
-      } else if (currentY < lastScrollY - 4 || currentY <= 140) {
+      } else if (currentY < lastScrollY - 4 || !isPastHero) {
         header.classList.remove('is-hidden');
       }
     }
