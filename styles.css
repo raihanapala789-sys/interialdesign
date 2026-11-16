@@ -1979,12 +1979,14 @@ ol {
   flex-direction: column;
   gap: clamp(2.5rem, 5vw, 4.5rem);
   width: 100%;
-  max-width: 1260px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .project-row {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   align-items: center;
   padding: clamp(1.5rem, 3vw, 2.75rem);
@@ -1992,17 +1994,14 @@ ol {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-card);
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75);
-  transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial), transform 0.4s var(--ease-editorial);
+  transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial);
 }
 
-/* 1st & 3rd Project: WORK ON RIGHT, details on left, card shifted right */
+/* 1st & 3rd Project: PHOTO ON RIGHT, details on left, centered card */
 .project-row--right,
 .project-row:nth-child(odd) {
-  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
   gap: clamp(2rem, 4vw, 3.75rem);
-  margin-left: auto;
-  margin-right: 0;
-  max-width: min(92%, 1160px);
 }
 
 .project-row--right .ba-slider,
@@ -2015,14 +2014,11 @@ ol {
   order: 1;
 }
 
-/* 2nd Project: WORK ON LEFT, details on right, card shifted left */
+/* 2nd Project: PHOTO ON LEFT, details on right, centered card */
 .project-row--left,
 .project-row:nth-child(even) {
-  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
   gap: clamp(2rem, 4vw, 3.75rem);
-  margin-left: 0;
-  margin-right: auto;
-  max-width: min(92%, 1160px);
 }
 
 .project-row--left .ba-slider,
