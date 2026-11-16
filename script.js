@@ -498,9 +498,6 @@ function initPreloader(prefersReducedMotion, onComplete) {
 function initHeroAnimations(prefersReducedMotion) {
   const track = document.getElementById('heroScrollTrack') || document.getElementById('home');
   const video = document.getElementById('heroScrollVideo');
-  const progressBar = document.getElementById('heroScrubProgress');
-  const timeCounter = document.getElementById('heroTimeCounter');
-  const chapterTitle = document.getElementById('heroCinemaChapter');
   const captionStage = document.getElementById('heroCaptionStage');
   const finalCtaImg = document.getElementById('finalCtaImg');
 
@@ -567,14 +564,6 @@ function initHeroAnimations(prefersReducedMotion) {
   });
   video.addEventListener('canplay', updateDuration);
 
-  // Time format helper (00:00)
-  const formatTime = (secs) => {
-    const s = Math.max(0, Math.floor(secs));
-    const m = Math.floor(s / 60);
-    const rem = s % 60;
-    return `${String(m).padStart(2, '0')}:${String(rem).padStart(2, '0')}`;
-  };
-
   let targetProgress = 0;
   let currentProgress = 0;
   let isSeeking = false;
@@ -599,14 +588,6 @@ function initHeroAnimations(prefersReducedMotion) {
       }
     }
 
-    if (progressBar) {
-      progressBar.style.width = `${(currentProgress * 100).toFixed(2)}%`;
-    }
-
-    if (timeCounter) {
-      timeCounter.textContent = `${formatTime(targetSec)} / ${formatTime(duration)}`;
-    }
-
     // Fade caption on the first of the scrolling animation as user scrolls down
     if (captionStage) {
       if (currentProgress < 0.24) {
@@ -618,17 +599,6 @@ function initHeroAnimations(prefersReducedMotion) {
         captionStage.style.opacity = '0';
         captionStage.style.transform = 'translateY(-20px)';
         captionStage.style.pointerEvents = 'none';
-      }
-    }
-
-    // Dynamic architectural chapter display during scroll
-    if (chapterTitle) {
-      if (currentProgress < 0.33) {
-        chapterTitle.textContent = '01 · ATELIER REVEAL & COVE LIGHTING';
-      } else if (currentProgress < 0.66) {
-        chapterTitle.textContent = '02 · SCULPTED FLUTED WALNUT & HONED STONE';
-      } else {
-        chapterTitle.textContent = '03 · COMPLETED LIVING PAVILION & AMBIANCE';
       }
     }
 
