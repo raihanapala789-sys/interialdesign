@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    VELORE — Luxury Interior Architecture & Bespoke Design
    JavaScript Architecture: Config, Image Slots, GSAP/ScrollTrigger, Lenis, UI
    ========================================================================== */
@@ -1579,24 +1579,8 @@ function initServicesInteraction() {
    Material Swatch Explorer (Hover / Tap / Focus Macro Preview)
    ========================================================================== */
 const SWATCH_EXPLORER_DATA = {
-  quartzite: {
-    index: '01 / Luminescent Mineral',
-    title: 'Backlit Crystalline Quartzite & Honey Onyx',
-    finish: 'Translucent Cleft with Integrated 2400K Ambient Glow',
-    usage: 'Lumina Waterfall Island, Floating Hearths & Powder Rooms',
-    tex: 'tex-quartzite',
-    glow: true
-  },
-  alabaster: {
-    index: '02 / Ambient Halo Stone',
-    title: 'Veined Spanish Alabaster & Halo Glass',
-    finish: 'Hand-Turned Translucent Stone with 2200K Evening Halo',
-    usage: 'Serein Halo Mirror, Sculptural Sconces & Recessed Niche Coves',
-    tex: 'tex-alabaster',
-    glow: true
-  },
   wood: {
-    index: '03 / Architectural Timber',
+    index: '01 / Architectural Timber',
     title: 'European Smoked Walnut & Teak',
     finish: 'Hand-Rubbed Raw Beeswax Oil & Fine Fluting',
     usage: 'Fluted Library Walls, Acoustic Ceilings & Dining Monoliths',
@@ -1604,7 +1588,7 @@ const SWATCH_EXPLORER_DATA = {
     glow: false
   },
   stone: {
-    index: '04 / Geological Stone',
+    index: '02 / Geological Stone',
     title: 'Roman Travertine & Nero Marquina',
     finish: 'Honed Open-Pore Matte Slate with Subtle Underglow',
     usage: 'Sculpted Basin Monoliths, Cleft Walls & Floors',
@@ -1612,7 +1596,7 @@ const SWATCH_EXPLORER_DATA = {
     glow: false
   },
   metal: {
-    index: '05 / Architectural Metal',
+    index: '03 / Architectural Metal',
     title: 'Unlacquered Champagne Brass',
     finish: 'Hand-Brushed Living Satin Patina with Warm Light Glint',
     usage: 'Custom Halo Luminaires & Joinery Hardware',
@@ -1620,7 +1604,7 @@ const SWATCH_EXPLORER_DATA = {
     glow: true
   },
   fabric: {
-    index: '06 / Woven Textile',
+    index: '04 / Woven Textile',
     title: 'Belgian Wool Bouclé & Raw Flax',
     finish: 'Tight-Loop Acoustic & Soil-Safe Weave',
     usage: 'Curved Salon Seating & Sheer Twilight Drapery',
@@ -1628,7 +1612,7 @@ const SWATCH_EXPLORER_DATA = {
     glow: false
   },
   leather: {
-    index: '07 / Full-Grain Hide',
+    index: '05 / Full-Grain Hide',
     title: 'Cognac Vegetable-Tanned Saddle Leather',
     finish: 'Warm Aniline Balm Patina',
     usage: 'Lounge Armchairs, Headboards & Stitched Pulls',
@@ -1636,7 +1620,7 @@ const SWATCH_EXPLORER_DATA = {
     glow: false
   },
   plaster: {
-    index: '08 / Wall Craft',
+    index: '06 / Wall Craft',
     title: 'Troweled Italian Mineral Lime',
     finish: 'Breathable Matte Crushed Travertine with Grazing Light',
     usage: 'Evening Alcove Walls & Spa Vaults',
@@ -1657,7 +1641,7 @@ function initMaterialSwatchExplorer() {
   if (!selector || !stageTex) return;
 
   const buttons = Array.from(selector.querySelectorAll('[data-swatch-key]'));
-  let activeKey = 'quartzite';
+  let activeKey = 'wood';
 
   const applySwatch = (key) => {
     if (!SWATCH_EXPLORER_DATA[key] || key === activeKey) return;
