@@ -575,7 +575,6 @@ ol {
     backdrop-filter 0.5s var(--ease-editorial),
     border-color 0.5s var(--ease-editorial),
     height 0.4s var(--ease-editorial);
-  will-change: transform;
 }
 
 .site-header.is-scrolled {
@@ -871,6 +870,9 @@ ol {
   height: 100%;
   overflow: hidden;
   z-index: 0;
+  contain: paint;
+  isolation: isolate;
+  background-color: #0b0a09;
 }
 
 .hero-full__video {
@@ -878,27 +880,17 @@ ol {
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transform: scale(1.035);
-  transform-origin: center center;
+  transform: none !important;
   display: block;
   filter: none !important;
   opacity: 1 !important;
   pointer-events: none;
-  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto !important;
+  will-change: auto !important;
 }
 
 .hero-full__fallback-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  transform: scale(1.035);
-  transform-origin: center center;
-  z-index: -1;
-  filter: none !important;
-  opacity: 1;
+  display: none !important;
 }
 
 /* Full-Size Caption on the First of the Scrolling Animation */

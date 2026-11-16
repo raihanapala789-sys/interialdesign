@@ -569,9 +569,17 @@ function initHeroAnimations(prefersReducedMotion) {
   let targetProgress = 0;
   let currentProgress = 0;
   let isSeeking = false;
+  let seekStartTime = 0;
 
+  const removePoster = () => {
+    if (video.hasAttribute('poster')) {
+      video.removeAttribute('poster');
+    }
+  };
+  video.addEventListener('loadeddata', removePoster);
   video.addEventListener('seeked', () => {
     isSeeking = false;
+    removePoster();
   });
 
   const renderScrub = () => {
@@ -582,10 +590,12 @@ function initHeroAnimations(prefersReducedMotion) {
     }
 
     const targetSec = Math.max(0, Math.min(duration, currentProgress * duration));
+    const now = performance.now();
 
-    if (video.readyState >= 2 && !isSeeking) {
-      if (Math.abs(video.currentTime - targetSec) > 0.03) {
+    if (video.readyState >= 2 && (!isSeeking || (now - seekStartTime > 160))) {
+      if (Math.abs(video.currentTime - targetSec) > 0.02) {
         isSeeking = true;
+        seekStartTime = now;
         video.currentTime = targetSec;
       }
     }
