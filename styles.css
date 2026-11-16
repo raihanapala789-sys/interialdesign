@@ -1955,52 +1955,51 @@ ol {
   overflow: visible;
 }
 
+/* ==========================================================================
+   Portfolio: Unpinned Natural Editorial Layout
+   ========================================================================== */
+#portfolio {
+  position: relative;
+  overflow: visible;
+}
+
+.portfolio-toolbar {
+  display: none;
+}
+
 .portfolio-viewport {
   position: relative;
   overflow: visible;
-  perspective: 1250px;
-  perspective-origin: 50% 48%;
   width: 100%;
-  padding-block: 0.5rem 1.5rem;
+  padding-block: 0.5rem 2rem;
 }
 
 .portfolio-list {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
   width: 100%;
-  max-width: 1180px;
+  max-width: 1200px;
   margin: 0 auto;
-  transform-style: preserve-3d;
-  min-height: clamp(480px, 58vh, 600px);
 }
 
 .project-row {
-  grid-area: 1 / 1 / 2 / 2;
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
-  gap: clamp(1.75rem, 3.5vw, 3.5rem);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 4vw, 3.75rem);
   align-items: center;
-  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  padding: clamp(1.5rem, 3vw, 2.75rem);
   background-color: var(--bg-surface);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-card);
-  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(216, 185, 143, 0.08);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  will-change: transform, opacity, filter;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75);
   transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial);
-}
-
-.project-row.is-active-card {
-  border-color: rgba(216, 185, 143, 0.35);
-  box-shadow: 0 35px 85px -15px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(216, 185, 143, 0.22);
 }
 
 .project-row:hover {
   border-color: var(--hairline-strong);
+  box-shadow: 0 30px 75px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(200, 169, 106, 0.2);
 }
 
 .project-row.is-hidden {
@@ -3716,11 +3715,11 @@ ol {
   }
 
   .portfolio-list {
-    min-height: clamp(560px, 70vh, 720px);
+    min-height: auto;
   }
 
   .project-row {
-    width: min(92vw, 760px);
+    width: 100%;
     gap: 1.5rem;
     padding: 1.5rem;
   }
@@ -3787,17 +3786,17 @@ ol {
   }
 
   .portfolio-viewport {
-    perspective: 950px;
+    perspective: none;
   }
 
   .portfolio-list {
-    min-height: clamp(520px, 72vh, 640px);
+    min-height: auto;
   }
 
   .project-row {
     width: 100%;
-    padding: 1rem;
-    gap: 1rem;
+    padding: 1.15rem;
+    gap: 1.15rem;
   }
 
   .project-details__story {
