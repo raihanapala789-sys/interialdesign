@@ -1210,27 +1210,28 @@ function initHorizontalProcess(prefersReducedMotion) {
     return;
   }
 
-  cards.forEach((card) => {
-    const isLeft = card.classList.contains('process-card--left');
-    // Left boxes slide in from left (-100px), Right boxes slide in from right (+100px)
-    const xDist = isLeft ? -100 : 100;
+  cards.forEach((card, idx) => {
+    const colIndex = idx % 3; // 0 = left, 1 = center, 2 = right
+    const xDist = colIndex === 0 ? -35 : (colIndex === 2 ? 35 : 0);
 
     gsap.fromTo(
       card,
       {
         opacity: 0,
+        y: 35,
         x: xDist
       },
       {
         opacity: 1,
+        y: 0,
         x: 0,
-        duration: 0.95,
-        delay: isLeft ? 0 : 0.08,
+        duration: 0.85,
+        delay: colIndex * 0.1,
         ease: 'power3.out',
         clearProps: 'transform,opacity',
         scrollTrigger: {
           trigger: card,
-          start: 'top 86%',
+          start: 'top 88%',
           once: true
         }
       }
