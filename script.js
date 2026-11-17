@@ -552,7 +552,7 @@ function initHeroAnimations(prefersReducedMotion) {
   video.muted = true;
   video.playsInline = true;
 
-  let duration = 33.79;
+  let duration = 32.65;
   const updateDuration = () => {
     if (video.duration && !isNaN(video.duration) && video.duration > 0) {
       duration = video.duration;
